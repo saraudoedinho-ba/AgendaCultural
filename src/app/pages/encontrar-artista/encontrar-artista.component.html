@@ -1,0 +1,68 @@
+<app-header></app-header>
+
+<div class="encontrar-artista-container">
+  <div class="filters-wrapper">
+    <div class="hero-section">
+      <h1>Encontre o Músico Ideal para Seu Evento</h1>
+      <p class="subtitle">Veja vídeos, avaliações e contrate diretamente pela plataforma</p>
+    </div>
+
+    <div class="alert-banner">
+      <p>OBS: Se reservar uma data na agenda do músico e por algum motivo não precisar mais dos serviços, avise com até 7 dias de antecedência para liberar a agenda do músico</p>
+    </div>
+
+    <div class="filters-section">
+      <h2>Filtros de Busca</h2>
+
+    <div class="filter-group">
+      <label>Tipo de Serviço</label>
+      <div class="custom-select" [class.open]="isTipoServicoOpen">
+        <div class="select-header" (click)="toggleTipoServico()">
+          <span>{{ selectedTipoServico }}</span>
+          <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
+            <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        @if (isTipoServicoOpen) {
+          <div class="select-options">
+            @for (option of tipoServicoOptions; track option) {
+              <div 
+                class="select-option" 
+                [class.selected]="option === selectedTipoServico"
+                (click)="selectTipoServico(option)">
+                {{ option }}
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <label>Cidade do Evento</label>
+      <div class="custom-select" [class.open]="isCidadeOpen">
+        <div class="select-header" (click)="toggleCidade()">
+          <span>{{ selectedCidade }}</span>
+          <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
+            <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        @if (isCidadeOpen) {
+          <div class="select-options">
+            @for (option of cidadeOptions; track option) {
+              <div 
+                class="select-option" 
+                [class.selected]="option === selectedCidade"
+                (click)="selectCidade(option)">
+                {{ option }}
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+    <button class="btn-buscar" (click)="buscarMusicos()">BUSCAR</button>
+    </div>
+  </div>
+</div>
