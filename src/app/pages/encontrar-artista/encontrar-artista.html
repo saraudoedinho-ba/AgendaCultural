@@ -1,0 +1,109 @@
+
+<app-header></app-header>  
+<br /><br />
+<div class="encontrar-artista-container">
+  <!-- Banner de Aviso -->
+  <div class="alert-banner">
+    <div class="alert-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="12"></line>
+        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+      </svg>
+    </div>
+    <div class="alert-content">
+      <strong>IMPORTANTE — Política de Cancelamento</strong>
+      <p>Se reservar uma data na agenda do músico e por algum motivo não precisar de mais dos serviços, avise com até 7 dias de antecedência para liberar a agenda do músico.</p>
+    </div>
+  </div>
+
+  <!-- Barra de Filtros -->
+  <div class="filter-bar">
+    <div class="filter-group">
+      <label>Categoria</label>
+      <select>
+        <option>Todas</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Estado</label>
+      <select>
+        <option>Todos</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Cidade</label>
+      <select>
+        <option>Todas</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>Bairro</label>
+      <input type="text" placeholder="Digite o bairro...">
+    </div>
+    <div class="filter-group">
+      <label>Buscar por nome</label>
+      <input type="text" placeholder="Digite o nome...">
+    </div>
+  </div>
+
+  <!-- Grid de Artistas -->
+  <div class="artists-grid">
+    <!-- Card 1 -->
+    <div class="artist-card">
+      <div class="card-image purple-bg"></div>
+      <div class="card-info">
+        <h3>João & Violão</h3>
+        <span class="category">Voz e Violão</span>
+        <span class="location">São Paulo, São Paulo</span>
+        <div class="rating">
+          <span class="stars">★★★★★</span>
+          <span class="score">4.9</span>
+        </div>
+        <button class="btn-contact">CONTATAR</button>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="artist-card">
+      <div class="card-image red-bg">
+        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M9 18V5l12-2v13"></path>
+          <circle cx="6" cy="18" r="3"></circle>
+          <circle cx="18" cy="16" r="3"></circle>
+        </svg>
+      </div>
+      <div class="card-info">
+        <h3>Banda Fênix</h3>
+        <span class="category">Banda Baile</span>
+        <span class="location">Rio de Janeiro, Rio de Janeiro</span>
+        <div class="rating">
+          <span class="stars">★★★★★</span>
+          <span class="score">4.8</span>
+        </div>
+        <button class="btn-contact">CONTATAR</button>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="artist-card">
+      <div class="card-image green-bg">
+        <svg class="placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.84-8.84 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+        </svg>
+      </div>
+      <div class="card-info">
+        <h3>Duo Harmonia</h3>
+        <span class="category">Cerimonial</span>
+        <span class="location">Belo Horizonte, Minas Gerais</span>
+        <div class="rating">
+          <span class="stars">★★★★★</span>
+          <span class="score">5</span>
+        </div>
+        <button class="btn-contact">CONTATAR</button>
+      </div>
+    </div>
+  </div>
+</div>
+<br /><br />
+<app-rodape></app-rodape>
