@@ -1,0 +1,143 @@
+﻿:host {
+  display: block;
+  font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.hero-section {
+  background-color: #051937; /* Fundo azul escuro profundo */
+  background-image: radial-gradient(circle at center, #0a2a5a 0%, #051937 100%);
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: #ffffff;
+  text-align: center;
+}
+
+.hero-container {
+  max-width: 900px;
+  width: 100%;
+}
+
+/* Badge Superior */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  background-color: rgba(0, 188, 212, 0.1);
+  border: 1px solid rgba(0, 188, 212, 0.3);
+  padding: 6px 16px;
+  border-radius: 50px;
+  margin-bottom: 30px;
+}
+
+.hero-badge .dot {
+  width: 8px;
+  height: 8px;
+  background-color: #00bcd4;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.hero-badge p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #00bcd4;
+}
+
+/* Título */
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+}
+
+.hero-title .highlight {
+  color: #00bcd4;
+  text-shadow: 0 0 20px rgba(0, 188, 212, 0.6);
+}
+
+/* Subtítulo */
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: #a0aec0;
+  margin-bottom: 40px;
+  font-weight: 400;
+}
+
+/* Botões */
+.hero-actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 14px 28px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  border: none;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-primary {
+  background-color: #00bcd4;
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(0, 188, 212, 0.4);
+}
+
+.btn-primary:hover {
+  background-color: #00acc1;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 188, 212, 0.5);
+}
+
+.btn-secondary {
+  background-color: rgba(10, 42, 90, 0.6);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+}
+
+.btn-secondary:hover {
+  background-color: rgba(10, 42, 90, 0.8);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Ícones (Placeholder para FontAwesome ou similar) */
+.icon-search::before { content: '🔍'; font-style: normal; }
+.icon-mic::before { content: '🎤'; font-style: normal; }
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-badge p {
+    font-size: 12px;
+  }
+  
+  .hero-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .btn {
+    width: 100%;
+    max-width: 300px;
+    justify-content: center;
+  }
+}

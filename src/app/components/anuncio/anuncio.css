@@ -1,0 +1,93 @@
+.anuncio-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Ad Card Styles */
+.ad-card {
+  width: 100%;
+  max-width: 620px;
+  height: 222px;
+  background-color: #d1d1d6; /* Cinza claro da imagem */
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.ad-text-content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.ad-title {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #3a3a3c;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.ad-dimensions {
+  font-size: 0.9rem;
+  color: #8e8e93;
+  margin: 0;
+}
+
+/* Icon Box Styles */
+.ad-icon-box {
+  width: 80px;
+  height: 80px;
+  background-color: #3a3a3c; /* Cinza escuro/preto do box */
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.megaphone-icon {
+  width: 40px;
+  height: 40px;
+  transform: rotate(-10deg);
+}
+
+/* Rating Stars Styles */
+.rating-stars {
+  display: flex;
+  gap: 5px;
+}
+
+.star {
+  font-size: 2.5rem;
+  color: #ffff00; /* Amarelo brilhante das estrelas */
+  text-shadow: 0 0 5px rgba(255, 255, 0, 0.3);
+  line-height: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 500px) {
+  .ad-card {
+    height: auto;
+    padding: 30px 20px;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+  
+  .ad-title {
+    font-size: 1.5rem;
+  }
+  
+  .star {
+    font-size: 2rem;
+  }
+}

@@ -1,0 +1,140 @@
+:host {
+  display: block;
+  font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.info-section {
+  background-color: #051937;
+  background-image: radial-gradient(circle at center, #0a2a5a 0%, #051937 100%);
+  padding: 100px 20px;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+}
+
+.info-container {
+  max-width: 1100px;
+  width: 100%;
+}
+
+/* Cabeçalho */
+.info-header {
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.info-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  margin-bottom: 15px;
+  letter-spacing: -0.5px;
+}
+
+.info-title .highlight {
+  color: #00bcd4;
+  text-shadow: 0 0 25px rgba(0, 188, 212, 0.7);
+}
+
+.info-subtitle {
+  font-size: 1.15rem;
+  color: #a0aec0;
+  font-weight: 400;
+}
+
+.price-highlight {
+  color: #00bcd4;
+  font-weight: 700;
+}
+
+/* Grid de Cards */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.info-card {
+  background: rgba(10, 42, 90, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 35px;
+  display: flex;
+  align-items: flex-start;
+  gap: 25px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  backdrop-filter: blur(10px);
+}
+
+.info-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(0, 188, 212, 0.4);
+  background: rgba(10, 42, 90, 0.5);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+/* Ícones dos Cards */
+.card-icon {
+  min-width: 54px;
+  height: 54px;
+  background: #00bcd4;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(0, 188, 212, 0.5);
+  color: #ffffff;
+}
+
+.card-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* Conteúdo dos Cards */
+.card-content h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  color: #ffffff;
+}
+
+.card-content p {
+  font-size: 1rem;
+  color: #cbd5e0;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.card-note {
+  display: block;
+  font-size: 0.85rem;
+  color: #718096;
+  margin-top: 12px;
+  font-style: italic;
+}
+
+/* Responsividade */
+@media (max-width: 992px) {
+  .info-grid {
+    grid-template-columns: 1fr;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .info-title {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .info-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 30px 20px;
+  }
+  
+  .card-icon {
+    margin-bottom: 5px;
+  }
+}
