@@ -224,6 +224,46 @@ textarea {
 .btn-cancel:hover {
   background-color: rgba(255, 255, 255, 0.05);
 }
+/* Grid para as especialidades - 3 colunas conforme imagem */
+.especialidades-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px 20px;
+  margin-top: 8px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  margin: 0;
+}
+
+.checkbox-label span {
+  user-select: none;
+}
+
+/* Responsivo para telas menores */
+@media (max-width: 768px) {
+  .especialidades-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .especialidades-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 
 /* Responsividade */
 @media (max-width: 600px) {

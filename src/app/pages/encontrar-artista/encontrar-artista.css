@@ -4,7 +4,7 @@
   background-color: white;
   min-height: 100vh;
  
-  color: #ffffff;
+  color: #cbd5e0; /* SUGGESTED EDIT */
 }
 
 .encontrar-artista-container {
@@ -112,88 +112,37 @@
 .red-bg { background: linear-gradient(135deg, #e53e3e 0%, #9b2c2c 100%); }
 .green-bg { background: linear-gradient(135deg, #2f855a 0%, #22543d 100%); }
 
-.placeholder-icon {
-  width: 60px;
-  height: 60px;
-  color: rgba(255, 255, 255, 0.3);
+.loading {
+    text-align: center;
+  padding: 40px;
+  color: #cbd5e0; /* SUGGESTED EDIT */
+  font-size: 1.1rem;
+  }
+
+.no-results {
+  text-align: center;
+  padding: 40px;
+  color: #cbd5e0; /* SUGGESTED EDIT */
+  font-size: 1.1rem;
 }
 
-.card-info {
-  padding: 20px;
-}
-
-.card-info h3 {
-  margin: 0 0 5px 0;
-  font-size: 1.25rem;
-  font-weight: 700;
-}
-
-.card-info .category {
-  display: block;
-  font-size: 0.85rem;
-  color: #00bcd4;
-  margin-bottom: 5px;
-}
-
-.card-info .location {
-  display: block;
-  font-size: 0.85rem;
-  color: #a0aec0;
-  margin-bottom: 15px;
-}
-
-.rating {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 20px;
-}
-
-.stars {
-  color: #f6e05e;
-  font-size: 0.9rem;
-}
-
-.score {
-  font-size: 0.9rem;
-  color: #cbd5e0;
-}
-
-.btn-contact {
+.btn-pesquisar { /* NEW CODE */
   width: 100%;
-  background-color: #00bcd4;
-  color: #ffffff;
+  background: #00b4db;
+  background: linear-gradient(to bottom, #00d2ff, #00b4db);
+  color: white;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 12px;
   font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  box-shadow: 0 0 15px rgba(0, 180, 219, 0.4);
 }
 
-.btn-contact:hover {
-  background-color: #00acc1;
-}
-
-/* Responsividade */
-@media (max-width: 1024px) {
-  .artists-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .filter-bar {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .filter-bar {
-    grid-template-columns: 1fr;
-  }
-  .artists-grid {
-    grid-template-columns: 1fr;
-  }
-  .alert-banner {
-    flex-direction: column;
-    text-align: center;
-  }
+.btn-pesquisar:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 0 20px rgba(0, 180, 219, 0.6);
 }
