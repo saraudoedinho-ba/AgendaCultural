@@ -29,7 +29,7 @@ export class EncontrarArtistaComponent implements OnInit {
   filtroCidade = '';
   filtroCategoria = '';
 
-  private coresCards = ['purple-bg', 'red-bg', 'green-bg']; // SUGGESTED EDIT
+  private coresCards = ['purple-bg', 'purple-bg', 'purple-bg']; // SUGGESTED EDIT
 
   constructor(
     private router: Router,

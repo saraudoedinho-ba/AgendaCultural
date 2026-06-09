@@ -12,7 +12,8 @@
     </div>
     <div class="alert-content">
       <strong>IMPORTANTE — Política de Cancelamento</strong>
-      <p>Se reservar uma data na agenda do músico e por algum motivo não precisar de mais dos serviços, avise com até 7 dias de antecedência para liberar a agenda do músico.</p>
+
+      <p>Se reservar uma data na agenda do músico e por algum motivo não precisar mais dos serviços, avise com até 7 dias de antecedência para liberar a agenda do músico.</p>
     </div>
   </div>
 
@@ -54,21 +55,24 @@
     <!-- Grid de Artistas -->
   <div *ngIf="carregando" class="loading">Carregando artistas...</div>
   <div *ngIf="!carregando && artistas.length === 0" class="no-results">Nenhum artista encontrado.</div>
-  <div class="artists-grid">
+  <div class="artists-grid" >
     <div *ngFor="let artista of artistas" class="artist-card">
-      <div class="card-image" [ngClass]="getCardColor(artista.id)"></div>
+      <div class="card-image" [ngClass]="getCardColor(artista.id)"><img src="assets/images/back_clave.png" alt="back_clave" class="card-img-background" /></div>
       <div class="card-info">
-        <h3>{{ artista.musNomeArtistico }}</h3>
+        <h2 style="color:white; font-size:1rem">{{ artista.musNomeArtistico }}</h2>
         <span class="category">{{ artista.musEspecialidade || artista.musTipoServico || 'Não especificado' }}</span>
         <span class="location">{{ artista.musCidade }}, {{ artista.musEstado }}</span>
         <div class="rating">
           <span class="stars">★★★★★</span>
-          <span class="score">5.0</span>
+          <span class="score"> 5.0</span>
         </div>
-        <button class="btn-contact" (click)="navegarParaDetalhes(artista.id)">CONTATAR</button>
+        <button class="btn-contact" (click)="navegarParaDetalhes(artista.id)">VER PERFIL</button> <!-- SUGGESTED EDIT -->
       </div>
     </div>
+  </div>
 </div>
-</div>
+
 <br /><br />
 <app-rodape></app-rodape>
+
+

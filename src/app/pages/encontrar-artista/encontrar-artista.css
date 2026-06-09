@@ -6,7 +6,10 @@
  
   color: #cbd5e0; /* SUGGESTED EDIT */
 }
-
+.card-info{
+  padding-left:30px;
+  padding-right:30px
+}
 .encontrar-artista-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -102,10 +105,11 @@
 }
 
 .card-image {
-  height: 300px;
+  height: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin:30px;
 }
 
 .purple-bg { background: linear-gradient(135deg, #6b46c1 0%, #44337a 100%); }
@@ -145,4 +149,38 @@
 .btn-pesquisar:hover {
   filter: brightness(1.1);
   box-shadow: 0 0 20px rgba(0, 180, 219, 0.6);
+}
+
+.btn-contact {
+  width: 100%;
+  background: #00b4db;
+  background: linear-gradient(to bottom, #00d2ff, #00b4db);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  box-shadow: 0 0 15px rgba(0, 180, 219, 0.4);
+}
+
+.btn-contact:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 0 20px rgba(0, 180, 219, 0.6);
+}
+.category{
+  color:#02b5dd;
+}
+.star{
+  color:rgb(255, 208, 0)
+}
+
+.score{
+  color:rgb(255, 208, 0)
+}
+.rating{
+  padding-bottom:10px;
 }
