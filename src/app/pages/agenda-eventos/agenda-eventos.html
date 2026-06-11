@@ -1,0 +1,197 @@
+<app-header></app-header>  
+<div class="app-wrap">
+  <div class="toast" [ngClass]="[toastType, toastVisible ? 'show' : '']">{{ toastMessage }}</div>
+  <header class="dashboard-banner-img">
+    <div style="width:100%">
+      <img src="/assets/images/dashboard.png" alt="Banner Agendamento de Eventos" class="banner-img" />
+    </div>
+  </header>
+
+  <main class="page-content">
+    <section class="card card-top">
+      <div class="select-row">
+        <div class="select-group">
+          <label>MÊS</label>
+          <select class="form-input" [(ngModel)]="selectedMonth" (change)="onMonthYearChange()">
+            <option *ngFor="let month of months; let i = index" [value]="i">{{ month }}</option>
+          </select>
+        </div>
+        <div class="select-group">
+          <label>ANO</label>
+          <select class="form-input" [(ngModel)]="selectedYear" (change)="onMonthYearChange()">
+            <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+          </select>
+        </div>
+      </div>
+      <p class="help-text">Clique nas datas para agendar</p>
+    </section>
+
+    <section class="grid-layout">
+      <div class="column">
+        <div class="card">
+          <div class="week-days">
+            <span>DOM</span>
+            <span>SEG</span>
+            <span>TER</span>
+            <span>QUA</span>
+            <span>QUI</span>
+            <span>SEX</span>
+            <span>SAB</span>
+          </div>
+          <div class="calendar-grid">
+            <ng-container *ngFor="let cell of calendarCells">
+              <button class="cal-day" [class.empty]="cell.empty" [class.booked]="cell.booked" [class.today]="cell.today"
+                [class.selected]="cell.selected" [disabled]="cell.empty" (click)="selectDate(cell)">
+                <span *ngIf="!cell.empty">{{ cell.day }}</span>
+              </button>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="legend-row">
+          <div class="legend-item"><span class="legend-dot available"></span> Livre</div>
+          <div class="legend-item"><span class="legend-dot reserved"></span> Agendado</div>
+        </div>
+
+        <div class="card" *ngIf="selectedDate">
+          <h3>{{ selectedPeriodTitle }}</h3>
+          <div class="period-list">
+            <button *ngFor="let period of periods" class="period-bar" [class.reserved]="isPeriodBooked(period.key)"
+              [class.selected-period]="selectedPeriod === period.key" (click)="selectPeriod(period.key)">
+              <div>
+                <span class="period-icon">{{ period.icon }}</span>
+                <div class="period-text">
+                  <strong>{{ period.key }}</strong>
+                  <small>{{ period.time }}</small>
+                </div>
+              </div>
+              <span class="period-status">
+                {{ isPeriodBooked(period.key) ? '✓ Agendado' : 'Disponível' }}
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <div class="card" *ngIf="timePanelVisible && selectedPeriod">
+          <h3>{{ selectedPeriod }} — {{ selectedTime }}</h3>
+          <button class="time-button" (click)="selectTime()">
+            <span class="clock-icon">⏰</span>
+            {{ selectedTime }}
+          </button>
+        </div>
+      </div>
+
+      <div class="column card card-form">
+        <h3>AGENDAMENTO</h3>
+        <p class="form-subtitle">{{ formDateLabel }}</p>
+
+        <form (ngSubmit)="submitBooking()">
+          <div class="form-group">
+            <label for="fName">Nome</label>
+            <input id="fName" type="text" class="form-input" [(ngModel)]="bookingForm.fName" name="fName"
+              placeholder="Nome completo" required />
+          </div>
+
+          <div class="row-2">
+            <div class="form-group">
+              <label for="fPhone">Celular</label>
+              <input id="fPhone" type="tel" class="form-input" [(ngModel)]="bookingForm.fPhone" name="fPhone"
+                placeholder="(00) 00000-0000" required />
+            </div>
+            <div class="form-group">
+              <label for="fEmail">Email</label>
+              <input id="fEmail" type="email" class="form-input" [(ngModel)]="bookingForm.fEmail" name="fEmail"
+                placeholder="seu@email.com" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="fAddress">Endereço</label>
+            <input id="fAddress" type="text" class="form-input" [(ngModel)]="bookingForm.fAddress" name="fAddress"
+              placeholder="Endereço do evento" required />
+          </div>
+
+          <div class="row-2">
+            <div class="form-group">
+              <label for="fDuration">Duração</label>
+              <select id="fDuration" class="form-input" [(ngModel)]="bookingForm.fDuration" name="fDuration" style="color:black"
+                (change)="onDurationChange()" required>
+                <option value="">Selecione...</option>
+                <option *ngFor="let opt of durationOptions" [value]="opt.value">{{ opt.label }}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="fGuests">Convidados</label>
+              <select id="fGuests" class="form-input" [(ngModel)]="bookingForm.fGuests" name="fGuests"  style="color:black"
+                (change)="onGuestsChange()" required>
+                <option value="">Selecione...</option>
+                <option *ngFor="let opt of guestsOptions" [value]="opt.value">{{ opt.label }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row-2">
+            <div class="form-group">
+              <label>Serviço</label>
+              <input class="form-input" readonly [value]="bookingForm.fServiceValue" placeholder="R$ 0,00" />
+            </div>
+            <div class="form-group">
+              <label for="fSound">Som</label>
+              <select id="fSound" class="form-input" [(ngModel)]="bookingForm.fSound" name="fSound"  style="color:black"
+                (change)="onSoundChange()">
+                <option value="">Sem som</option>
+                <option *ngFor="let opt of soundOptions" [value]="opt.value">{{ opt.label }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Valor Som</label>
+            <input class="form-input" readonly [value]="bookingForm.fSoundValue" placeholder="R$ 0,00" />
+          </div>
+
+          <div class="summary-box">
+            <p>TOTAL</p>
+            <div class="summary-value">{{ totalPrice }}</div>
+          </div>
+
+          <div class="button-row">
+            <button type="submit" class="btn-primary">AGENDAR</button>
+            <button type="button" class="btn-secondary" (click)="clearForm()">LIMPAR</button>
+          </div>
+
+          <div class="button-row">
+            <a class="btn-ghost" href="mailto:agendamento@example.com">EMAIL</a>
+            <button type="button" class="btn-ghost" (click)="copyPix()">PIX</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="column card card-events">
+        <h3>AGENDADOS</h3>
+        <div class="events-list" *ngIf="eventsSorted.length; else emptyEvents">
+          <div class="event-card" *ngFor="let event of eventsSorted">
+            <div>
+              <div class="event-name">{{ event.full_name }}</div>
+              <div class="event-info">{{ event.date }} • {{ event.period }}</div>
+            </div>
+            <button class="delete-btn" (click)="openDeleteModal(event)">✖</button>
+          </div>
+        </div>
+        <ng-template #emptyEvents>
+          <p class="empty-text">Nenhum agendamento</p>
+        </ng-template>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-overlay" [class.active]="deleteModalOpen">
+    <div class="modal-card">
+      <p>Deseja cancelar este agendamento?</p>
+      <div class="modal-actions">
+        <button class="btn-delete" (click)="confirmDelete()">Sim, cancelar</button>
+        <button class="btn-ghost" (click)="cancelDelete()">Não</button>
+      </div>
+    </div>
+  </div>
+</div>

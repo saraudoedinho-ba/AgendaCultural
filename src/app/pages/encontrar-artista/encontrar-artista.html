@@ -61,7 +61,8 @@
       <div class="card-info">
         <h2 style="color:white; font-size:1rem">{{ artista.musNomeArtistico }}</h2>
         <span class="category">{{ artista.musEspecialidade || artista.musTipoServico || 'Não especificado' }}</span>
-        <span class="location">{{ artista.musCidade }}, {{ artista.musEstado }}</span>
+        <br />
+        <span class="location">{{ artista.musCidade || '-'}}  {{ artista.musEstado }}  </span>
         <div class="rating">
           <span class="stars">★★★★★</span>
           <span class="score"> 5.0</span>

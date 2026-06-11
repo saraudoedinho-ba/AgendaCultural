@@ -1,0 +1,311 @@
+<app-header></app-header>
+<div class="dashboard-container">
+  <!-- Header -->
+  <header class="dashboard-header">
+    <div class="header-content">
+      <h1>Dashboard do Músico</h1>
+      <p>Gerencie seus shows, clientes e agenda</p>
+    </div>
+  </header>
+
+  <!-- Navigation Tabs -->
+  <nav class="dashboard-nav">
+    <button
+      class="nav-button"
+      [class.active]="activeTab === 'dashboard'"
+      (click)="activeTab = 'dashboard'"
+    >
+      📊 Dashboard
+    </button>
+    <button
+      class="nav-button"
+      [class.active]="activeTab === 'shows'"
+      (click)="activeTab = 'shows'"
+    >
+      🎵 Meus Shows
+    </button>
+    <button
+      class="nav-button"
+      [class.active]="activeTab === 'clients'"
+      (click)="activeTab = 'clients'"
+    >
+      👥 Clientes
+    </button>
+    <button
+      class="nav-button"
+      [class.active]="activeTab === 'leads'"
+      (click)="activeTab = 'leads'"
+    >
+      ⭐ Leads ({{ newLeads }})
+    </button>
+    <button
+      class="nav-button"
+      [class.active]="activeTab === 'block-agenda'"
+      (click)="activeTab = 'block-agenda'"
+    >
+      🔒 Bloquear Agenda
+    </button>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="dashboard-content">
+    <!-- Dashboard Overview Tab -->
+    <section *ngIf="activeTab === 'dashboard'" class="tab-content">
+      <!-- Subscription / Plan Section -->
+      <section class="subscription-section">
+        <div class="subscription-card">
+          <div class="subscription-info">
+            <h3>📋 Plano Atual</h3>
+            <p class="plan-name">Plano Premium</p>
+            <p class="plan-price">R$ 29,90 / mês</p>
+            <p class="plan-status">✅ Ativo</p>
+          </div>
+          <div class="subscription-actions">
+            <button class="btn-cancel-subscription" (click)="cancelSubscription()">
+              Cancelar Assinatura
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <div class="stats-grid">
+        <div class="stat-card stat-card-shows">
+          <div class="stat-icon">🎵</div>
+          <div class="stat-info">
+            <h3>Total de Shows</h3>
+            <p class="stat-number">{{ totalShows }}</p>
+          </div>
+        </div>
+
+        <div class="stat-card stat-card-completed">
+          <div class="stat-icon">✅</div>
+          <div class="stat-info">
+            <h3>Realizados</h3>
+            <p class="stat-number">{{ completedShows }}</p>
+          </div>
+        </div>
+
+        <div class="stat-card stat-card-upcoming">
+          <div class="stat-icon">📅</div>
+          <div class="stat-info">
+            <h3>Próximos</h3>
+            <p class="stat-number">{{ upcomingShows }}</p>
+          </div>
+        </div>
+
+        <div class="stat-card stat-card-clients">
+          <div class="stat-icon">👥</div>
+          <div class="stat-info">
+            <h3>Clientes</h3>
+            <p class="stat-number">{{ totalClients }}</p>
+          </div>
+        </div>
+
+        <div class="stat-card stat-card-leads">
+          <div class="stat-icon">⭐</div>
+          <div class="stat-info">
+            <h3>Leads Novos</h3>
+            <p class="stat-number">{{ newLeads }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Shows -->
+      <section class="recent-section">
+        <h2>Próximos Shows</h2>
+        <div class="recent-list">
+          <div *ngIf="upcomingShows === 0" class="empty-state">
+            <p>Nenhum show agendado</p>
+          </div>
+          <div *ngFor="let show of shows | slice:0:3" class="recent-item" [class]="getStatusClass(show.status)">
+            <div class="recent-item-header">
+              <h4>{{ show.client }}</h4>
+              <span class="status-badge">{{ getStatusLabel(show.status) }}</span>
+            </div>
+            <p class="recent-item-date">📅 {{ show.date | date: 'dd/MM/yyyy' }}</p>
+            <p class="recent-item-location">📍 {{ show.location }}</p>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- Shows Tab -->
+    <section *ngIf="activeTab === 'shows'" class="tab-content">
+      <h2>Meus Shows</h2>
+      <div class="shows-list">
+        <div *ngIf="shows.length === 0" class="empty-state">
+          <p>Nenhum show registrado</p>
+        </div>
+        <div *ngFor="let show of shows" class="show-card" [class]="getStatusClass(show.status)">
+          <div class="show-card-header">
+            <h3>{{ show.client }}</h3>
+            <div class="show-actions">
+              <span class="status-badge">{{ getStatusLabel(show.status) }}</span>
+              <button class="btn-delete" (click)="deleteShow(show.id)" title="Deletar show">
+                ✕
+              </button>
+            </div>
+          </div>
+          <div class="show-card-body">
+            <p><strong>Data:</strong> {{ show.date | date: 'dd/MM/yyyy' }}</p>
+            <p><strong>Local:</strong> {{ show.location }}</p>
+            <p><strong>Cliente:</strong> {{ show.client }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Clients Tab -->
+    <section *ngIf="activeTab === 'clients'" class="tab-content">
+      <h2>Meus Clientes</h2>
+      <div class="clients-grid">
+        <div *ngIf="clients.length === 0" class="empty-state">
+          <p>Nenhum cliente registrado</p>
+        </div>
+        <div *ngFor="let client of clients" class="client-card">
+          <div class="client-header">
+            <h3>{{ client.name }}</h3>
+            <span class="client-shows">{{ client.shows }} show{{ client.shows !== 1 ? 's' : '' }}</span>
+          </div>
+          <div class="client-info">
+            <p><strong>Email:</strong> {{ client.email }}</p>
+            <p><strong>Telefone:</strong> {{ client.phone }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Leads Tab -->
+    <section *ngIf="activeTab === 'leads'" class="tab-content">
+      <h2>Leads - Interessados em Contratar</h2>
+      <div class="leads-list">
+        <div *ngIf="leads.length === 0" class="empty-state">
+          <p>Nenhum lead registrado</p>
+        </div>
+        <div *ngFor="let lead of leads" class="lead-card" [class]="getStatusClass(lead.status)">
+          <div class="lead-header">
+            <h3>{{ lead.name }}</h3>
+            <div class="lead-actions">
+              <span class="status-badge">{{ getStatusLabel(lead.status) }}</span>
+              <button class="btn-delete" (click)="deleteLead(lead.id)" title="Remover lead">
+                ✕
+              </button>
+            </div>
+          </div>
+          <div class="lead-body">
+            <p><strong>Tipo de Evento:</strong> {{ lead.eventType }}</p>
+            <p><strong>Data Desejada:</strong> {{ lead.date | date: 'dd/MM/yyyy' }}</p>
+            <p><strong>Email:</strong> {{ lead.email }}</p>
+            <p><strong>Telefone:</strong> {{ lead.phone }}</p>
+          </div>
+          <div class="lead-actions-buttons">
+            <button
+              class="btn-action btn-contacted"
+              (click)="updateLeadStatus(lead, 'contacted')"
+              [disabled]="lead.status !== 'new'"
+            >
+              Marcar como Contatado
+            </button>
+            <button
+              class="btn-action btn-interested"
+              (click)="updateLeadStatus(lead, 'interested')"
+              [disabled]="lead.status === 'new'"
+            >
+              Marcar como Interessado
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Block Agenda Tab -->
+    <section *ngIf="activeTab === 'block-agenda'" class="tab-content">
+      <h2>Bloquear Agenda</h2>
+
+      <!-- Block Form -->
+      <div class="block-form-container">
+        <button
+          class="btn-primary btn-add-block"
+          (click)="showBlockForm = !showBlockForm"
+        >
+          {{ showBlockForm ? '✕ Cancelar' : '+ Bloquear Data' }}
+        </button>
+
+        <div *ngIf="showBlockForm" class="block-form">
+          <h3>Bloquear Nova Data</h3>
+          <div class="form-group">
+            <label for="blockDate">Data:</label>
+            <input
+              id="blockDate"
+              type="date"
+              [(ngModel)]="newBlockDate"
+              class="form-input"
+            />
+          </div>
+          <div class="form-group">
+            <label for="blockReason">Motivo:</label>
+            <input
+              id="blockReason"
+              type="text"
+              [(ngModel)]="newBlockReason"
+              placeholder="Ex: Indisponível, Manutenção, etc."
+              class="form-input"
+            />
+          </div>
+          <button class="btn-primary btn-submit" (click)="blockDate()">
+            Bloquear Data
+          </button>
+        </div>
+      </div>
+
+      <!-- Calendar -->
+      <div class="calendar-container">
+        <div class="calendar-header">
+          <button class="btn-nav" (click)="previousMonth()">◀</button>
+          <h3>{{ getMonthName() }} de {{ currentYear }}</h3>
+          <button class="btn-nav" (click)="nextMonth()">▶</button>
+        </div>
+
+        <div class="calendar">
+          <div class="calendar-weekdays">
+            <div class="weekday">Dom</div>
+            <div class="weekday">Seg</div>
+            <div class="weekday">Ter</div>
+            <div class="weekday">Qua</div>
+            <div class="weekday">Qui</div>
+            <div class="weekday">Sex</div>
+            <div class="weekday">Sab</div>
+          </div>
+
+          <div class="calendar-days">
+            <div
+              *ngFor="let day of calendarDays"
+              class="calendar-day"
+              [class.empty]="!day"
+              [class.blocked]="day && isDateBlocked(day)"
+            >
+              <span *ngIf="day">{{ day }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blocked Dates List -->
+      <div class="blocked-dates-section">
+        <h3>Datas Bloqueadas</h3>
+        <div *ngIf="blockedDates.length === 0" class="empty-state">
+          <p>Nenhuma data bloqueada</p>
+        </div>
+        <div *ngFor="let blocked of blockedDates" class="blocked-date-item">
+          <div class="blocked-date-info">
+            <p><strong>{{ blocked.date | date: 'dd/MM/yyyy' }}</strong></p>
+            <p>{{ blocked.reason }}</p>
+          </div>
+          <button class="btn-delete" (click)="unblockDate(blocked.date)" title="Desbloquear data">
+            ✕
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
