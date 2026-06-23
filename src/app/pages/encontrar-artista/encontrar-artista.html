@@ -23,9 +23,7 @@
       <label>Categoria</label>
       <select [(ngModel)]="filtroCategoria">
         <option value="">Todas</option>
-        <option value="Voz e Violão">Voz e Violão</option>
-        <option value="Banda Baile">Banda Baile</option>
-        <option value="Cerimonial">Cerimonial</option>
+        <option *ngFor="let esp of especialidades" [value]="esp">{{ esp }}</option>
       </select>
     </div>
     <div class="filter-group">

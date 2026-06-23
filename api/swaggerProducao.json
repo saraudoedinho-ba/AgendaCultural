@@ -1,0 +1,436 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de Usuários",
+    "version": "1.0.0",
+    "description": "API CRUD com MySQL"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Servidor local"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Usuários",
+      "description": "Operações relacionadas aos usuários"
+    },
+    {
+      "name": "Jogadores",
+      "description": "Operações relacionadas aos jogadores"
+    },
+    {
+      "name": "Login",
+      "description": "Autenticação de usuários"
+    }
+  ],
+  "paths": {
+    "/usuarios": {
+      "get": {
+        "tags": ["Usuários"],
+        "summary": "Lista todos os usuários",
+        "responses": {
+          "200": {
+            "description": "Lista de usauários"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Usuários"],
+        "summary": "Cria um novo usuário",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "usuUsuario": { "type": "string" },
+                  "usuNome": { "type": "string" },
+                  "usuEmail": { "type": "string" },
+                  "usuSenha": { "type": "string" }
+                },
+                "required": ["usuNome", "usuEmail", "usuSenha"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usuário criado"
+          }
+        }
+      }
+    },
+    "/usuarios/{id}": {
+      "get": {
+        "tags": ["Usuários"],
+        "summary": "Busca usuário por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Usuário encontrado" },
+          "404": { "description": "Usuário não encontrado" }
+        }
+      },
+      "put": {
+        "tags": ["Usuários"],
+        "summary": "Atualiza usuário",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": { "type": "string" },
+                  "email": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Usuário atualizado" },
+          "404": { "description": "Usuário não encontrado" }
+        }
+      },
+      "delete": {
+        "tags": ["Usuários"],
+        "summary": "Deleta usuário",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Usuário deletado" },
+          "404": { "description": "Usuário não encontrado" }
+        }
+      }
+    },
+    "/jogadores": {
+      "get": {
+        "tags": ["Jogadores"],
+        "summary": "Lista todos os jogadores",
+        "responses": {
+          "200": {
+            "description": "Lista de jogadores"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Jogadores"],
+        "summary": "Cria um novo jogador",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "usuID": { "type": "string" }
+                },
+                "required": ["usuID"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Jogador criado"
+          }
+        }
+      }
+    },
+    "/jogadores/{jogID}": {
+      "put": {
+        "tags": ["Jogadores"],
+        "summary": "Atualiza jogador",
+        "parameters": [
+          {
+            "name": "jogID",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "usuID": { "type": "string" },
+                  "jogID": { "type": "string" },
+                  "jogUsuario": { "type": "string" },
+                  "jogData": { "type": "string" },
+                  "jogHora": { "type": "string" },
+                  "jogEmail": { "type": "string" },
+                  "jogUsuarioJogo": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Jogador atualizado" },
+          "404": { "description": "Jogador não encontrado" }
+        }
+      }
+    },
+    "/jogadores/{usuID}": {
+      "get": {
+        "tags": ["Jogadores"],
+        "summary": "Busca jogador por usuID",
+        "parameters": [
+          {
+            "name": "usuID",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Jogador encontrado" },
+          "404": { "description": "Jogador não encontrado" }
+        } 
+      }
+    },
+    "/buscarAdversario/{usuID}": {
+      "get": {
+        "tags": ["Jogadores"],
+        "summary": "Busca um adversário diferente do usuID informado",
+        "parameters": [
+          {
+            "name": "usuID",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Adversário encontrado"
+          },
+          "404": {
+            "description": "Adversário não encontrado"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      }
+    },
+    "/contraAdversarioJogando/{jogUsuarioJogo}": {
+  "get": {
+    "tags": ["Jogadores"],
+    "summary": "Busca o adversário que esteja jogando contra o jogUsuarioJogo informado",
+    "parameters": [
+      {
+        "name": "jogUsuarioJogo",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "string" },
+        "description": "ID do usuário para o qual deseja encontrar o adversário atual jogando"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Adversário jogando encontrado",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "jogID": { "type": "integer" },
+                "usuID": { "type": "string" },
+                "jogUsuario": { "type": "string" },
+                "jogData": { "type": "string", "format": "date" },
+                "jogHora": { "type": "string" },
+                "jogEmail": { "type": "string" },
+                "jogUsuarioJogo": { "type": "string" },
+                "jogando": { "type": "integer" }
+              }
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Nenhum adversário jogando encontrado"
+      },
+      "500": {
+        "description": "Erro interno ao buscar adversário jogando"
+      }
+    }
+  }
+},
+    "/buscarAdversarioAnexado/{usuID}": {
+  "get": {
+    "tags": ["Jogadores"],
+    "summary": "Busca um adversário anexado ao jogador pelo usuID",
+    "parameters": [
+      {
+        "name": "usuID",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "string" },
+        "description": "ID do usuário que está buscando um adversário já vinculado"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Adversário anexado encontrado",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "jogID": { "type": "integer" },
+                "usuID": { "type": "string" },
+                "jogUsuario": { "type": "string" },
+                "jogData": { "type": "string", "format": "date" },
+                "jogHora": { "type": "string" },
+                "jogEmail": { "type": "string" },
+                "jogUsuarioJogo": { "type": "string" },
+                "jogando": { "type": "integer" }
+              }
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Adversário não encontrado"
+      },
+      "500": {
+        "description": "Erro interno ao buscar adversário"
+      }
+    }
+  }
+},
+    "/atualizarjogando/{usuID}": {
+      "put": {
+        "tags": ["Jogadores"],
+        "summary": "Atualiza status de jogando para um jogador",
+        "parameters": [
+          {
+            "name": "usuID",
+            "in": "path",
+            "required": true,
+            "schema": { 
+              "type": "string",
+              "description": "ID do usuário que está iniciando o jogo"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "jogUsuarioJogo": { 
+                    "type": "string",
+                    "description": "ID ou nome do usuário adversário"
+                  }
+                },
+                "required": ["jogUsuarioJogo"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Status de jogando atualizado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": { 
+                      "type": "string",
+                      "example": "Status de jogando atualizado"
+                    },
+                    "dados": {
+                      "type": "object",
+                      "properties": {
+                        "usuID": { 
+                          "type": "string",
+                          "description": "ID do usuário principal"
+                        },
+                        "jogUsuarioJogo": {
+                          "type": "string",
+                          "description": "ID ou nome do adversário"
+                        },
+                        "jogData": {
+                          "type": "string",
+                          "format": "date",
+                          "description": "Data da partida no formato YYYY-MM-DD"
+                        },
+                        "jogHora": {
+                          "type": "string",
+                          "description": "Hora da partida no formato HH:MM:SS"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requisição inválida - parâmetros faltando ou incorretos"
+          },
+          "404": {
+            "description": "Jogador não encontrado"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      }
+    },
+    "/login": {
+      "get": {
+        "tags": ["Login"],
+        "summary": "Autentica um usuário",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "usuEmail": { "type": "string" },
+                  "usuSenha": { "type": "string" }
+                },
+                "required": ["usuEmail", "usuSenha"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login realizado com sucesso"
+          },
+          "401": {
+            "description": "Credenciais inválidas"
+          }
+        }
+      }
+    }
+
+  }
+}

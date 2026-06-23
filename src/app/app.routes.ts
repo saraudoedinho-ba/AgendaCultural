@@ -4,6 +4,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { CadastroComponent } from './pages/cadastro/cadastro';  
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from './pages/login/login.component';
+import { DetalhesArtistaComponent } from './pages/detalhes-artista/detalhes-artista';
   
 export const routes: Routes = [  
   {path: '', component: HomeComponent},  
@@ -11,5 +12,6 @@ export const routes: Routes = [
   {path: 'login', component: LoginComponent},  
   {path: 'encontrar-artista', component: EncontrarArtistaComponent},  
   {path: 'cadastro-artista', component: CadastroComponent},  
+  {path: 'detalhes-artista/:id', component: DetalhesArtistaComponent},
   {path: '**', redirectTo: ''}  
 ]; 

@@ -1,0 +1,726 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de Eventos e Aplicativos",
+    "version": "1.0.0",
+    "description": "API CRUD para gerenciamento de eventos e aplicativos com MySQL"
+  },
+  "servers": [
+    {
+      "url": "https://ai2softek.com.br:3000",
+      "description": "Servidor de produção"
+    },
+    {
+      "url": "http://localhost:3000",
+      "description": "Servidor local de desenvolvimento"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Usuários",
+      "description": "Operações relacionadas aos usuários"
+    },
+    {
+      "name": "Eventos",
+      "description": "Operações relacionadas aos eventos"
+    },
+    {
+      "name": "Aplicativos",
+      "description": "Operações relacionadas aos aplicativos"
+    },
+    {
+      "name": "Categorias",
+      "description": "Operações relacionadas às categorias"
+    },
+    {
+      "name": "Login",
+      "description": "Autenticação de usuários"
+    }
+  ],
+  "paths": {
+    "/usuarios": {
+      "get": {
+        "tags": ["Usuários"],
+        "summary": "Lista todos os usuários",
+        "responses": {
+          "200": {
+            "description": "Lista de usuários",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "usuID": { "type": "integer" },
+                      "usuUsuario": { "type": "string" },
+                      "usuNome": { "type": "string" },
+                      "usuEmail": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Usuários"],
+        "summary": "Cria um novo usuário",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "usuUsuario": { "type": "string" },
+                  "usuNome": { "type": "string" },
+                  "usuEmail": { "type": "string" },
+                  "usuSenha": { "type": "string" }
+                },
+                "required": ["usuNome", "usuEmail", "usuSenha"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usuário criado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "usuID": { "type": "integer" },
+                    "usuUsuario": { "type": "string" },
+                    "usuNome": { "type": "string" },
+                    "usuEmail": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos fornecidos"
+          }
+        }
+      }
+    },
+    "/usuarios/{id}": {
+      "get": {
+        "tags": ["Usuários"],
+        "summary": "Busca usuário por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuário encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "usuID": { "type": "integer" },
+                    "usuUsuario": { "type": "string" },
+                    "usuNome": { "type": "string" },
+                    "usuEmail": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "404": { "description": "Usuário não encontrado" }
+        }
+      },
+      "put": {
+        "tags": ["Usuários"],
+        "summary": "Atualiza usuário",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "usuUsuario": { "type": "string" },
+                  "usuNome": { "type": "string" },
+                  "usuEmail": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Usuário atualizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "usuID": { "type": "integer" },
+                    "usuUsuario": { "type": "string" },
+                    "usuNome": { "type": "string" },
+                    "usuEmail": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "404": { "description": "Usuário não encontrado" }
+        }
+      },
+      "delete": {
+        "tags": ["Usuários"],
+        "summary": "Deleta usuário",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Usuário deletado" },
+          "404": { "description": "Usuário não encontrado" }
+        }
+      }
+    },
+    "/eventos": {
+      "get": {
+        "tags": ["Eventos"],
+        "summary": "Lista todos os eventos",
+        "responses": {
+          "200": {
+            "description": "Lista de eventos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "eveID": { "type": "integer" },
+                      "usuID": { "type": "integer" },
+                      "eveTitulo": { "type": "string" },
+                      "eveDescricao": { "type": "string" },
+                      "eveToken": { "type": "string" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Eventos"],
+        "summary": "Cria um novo evento",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "usuID": { "type": "integer" },
+                  "eveTitulo": { "type": "string" },
+                  "eveDescricao": { "type": "string" }
+                },
+                "required": ["usuID", "eveTitulo"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Evento criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "eveID": { "type": "integer" },
+                    "usuID": { "type": "integer" },
+                    "eveTitulo": { "type": "string" },
+                    "eveDescricao": { "type": "string" },
+                    "eveToken": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos fornecidos"
+          }
+        }
+      }
+    },
+    "/eventos/{eveID}": {
+      "get": {
+        "tags": ["Eventos"],
+        "summary": "Busca evento por ID",
+        "parameters": [
+          {
+            "name": "eveID",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Evento encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "eveID": { "type": "integer" },
+                    "usuID": { "type": "integer" },
+                    "eveTitulo": { "type": "string" },
+                    "eveDescricao": { "type": "string" },
+                    "eveToken": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "404": { "description": "Evento não encontrado" }
+        }
+      },
+      "put": {
+        "tags": ["Eventos"],
+        "summary": "Atualiza evento",
+        "parameters": [
+          {
+            "name": "eveID",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "eveTitulo": { "type": "string" },
+                  "eveDescricao": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Evento atualizado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "eveID": { "type": "integer" },
+                    "usuID": { "type": "integer" },
+                    "eveTitulo": { "type": "string" },
+                    "eveDescricao": { "type": "string" },
+                    "eveToken": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "404": { "description": "Evento não encontrado" }
+        }
+      },
+      "delete": {
+        "tags": ["Eventos"],
+        "summary": "Deleta evento",
+        "parameters": [
+          {
+            "name": "eveID",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Evento deletado com sucesso" },
+          "404": { "description": "Evento não encontrado" }
+        }
+      }
+    },
+    "/eventos/token/{eveToken}": {
+      "get": {
+        "tags": ["Eventos"],
+        "summary": "Busca evento por Token",
+        "parameters": [
+          {
+            "name": "eveToken",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Token único do evento"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Evento encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "eveID": {
+                      "type": "integer",
+                      "description": "ID do evento"
+                    },
+                    "usuID": {
+                      "type": "integer",
+                      "description": "ID do usuário dono do evento"
+                    },
+                    "eveTitulo": {
+                      "type": "string",
+                      "description": "Título do evento"
+                    },
+                    "eveDescricao": {
+                      "type": "string",
+                      "description": "Descrição do evento"
+                    },
+                    "eveToken": {
+                      "type": "string",
+                      "description": "Token do evento"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Evento não encontrado"
+          }
+        }
+      }
+    },
+    "/aplicativos": {
+      "get": {
+        "tags": ["Aplicativos"],
+        "summary": "Lista todos os aplicativos",
+        "responses": {
+          "200": {
+            "description": "Lista de aplicativos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Aplicativo"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Aplicativos"],
+        "summary": "Cria um novo aplicativo",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AplicativoInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Aplicativo criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Aplicativo"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos fornecidos"
+          }
+        }
+      }
+    },
+    "/aplicativos/{aplID}": {
+      "get": {
+        "tags": ["Aplicativos"],
+        "summary": "Busca aplicativo por ID",
+        "parameters": [
+          {
+            "name": "aplID",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Aplicativo encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Aplicativo"
+                }
+              }
+            }
+          },
+          "404": { "description": "Aplicativo não encontrado" }
+        }
+      },
+      "put": {
+        "tags": ["Aplicativos"],
+        "summary": "Atualiza aplicativo",
+        "parameters": [
+          {
+            "name": "aplID",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AplicativoInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Aplicativo atualizado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Aplicativo"
+                }
+              }
+            }
+          },
+          "404": { "description": "Aplicativo não encontrado" }
+        }
+      },
+      "delete": {
+        "tags": ["Aplicativos"],
+        "summary": "Deleta aplicativo",
+        "parameters": [
+          {
+            "name": "aplID",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Aplicativo deletado com sucesso" },
+          "404": { "description": "Aplicativo não encontrado" }
+        }
+      }
+    },
+    "/categorias": {
+      "get": {
+        "tags": ["Categorias"],
+        "summary": "Lista todas as categorias",
+        "responses": {
+          "200": {
+            "description": "Lista de categorias",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Categoria"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/categorias/{catID}": {
+      "get": {
+        "tags": ["Categorias"],
+        "summary": "Busca categoria por ID",
+        "parameters": [
+          {
+            "name": "catID",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Categoria encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Categoria"
+                }
+              }
+            }
+          },
+          "404": { "description": "Categoria não encontrada" }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": ["Login"],
+        "summary": "Autentica um usuário",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "usuEmail": { "type": "string" },
+                  "usuSenha": { "type": "string" }
+                },
+                "required": ["usuEmail", "usuSenha"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login realizado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": { "type": "string" },
+                    "usuario": {
+                      "type": "object",
+                      "properties": {
+                        "usuID": { "type": "integer" },
+                        "usuNome": { "type": "string" },
+                        "usuEmail": { "type": "string" }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Credenciais inválidas"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Aplicativo": {
+        "type": "object",
+        "properties": {
+          "aplID": {
+            "type": "integer",
+            "description": "ID único do aplicativo"
+          },
+          "aplTitulo": {
+            "type": "string",
+            "description": "Título do aplicativo"
+          },
+          "aplUrl": {
+            "type": "string",
+            "description": "URL do aplicativo"
+          },
+          "catID": {
+            "type": "integer",
+            "description": "ID da categoria do aplicativo"
+          },
+          "aplImg": {
+            "type": "string",
+            "description": "URL da imagem do aplicativo"
+          },
+          "aplMsg": {
+            "type": "string",
+            "description": "Mensagem do aplicativo"
+          }
+        }
+      },
+      "AplicativoInput": {
+        "type": "object",
+        "required": ["aplTitulo"],
+        "properties": {
+          "aplTitulo": {
+            "type": "string",
+            "description": "Título do aplicativo",
+            "example": "Meu App"
+          },
+          "aplUrl": {
+            "type": "string",
+            "description": "URL do aplicativo",
+            "example": "https://meuapp.com"
+          },
+          "catID": {
+            "type": "integer",
+            "description": "ID da categoria",
+            "example": 1
+          },
+          "aplImg": {
+            "type": "string",
+            "description": "URL da imagem do aplicativo",
+            "example": "https://meuapp.com/imagem.jpg"
+          },
+          "aplMsg": {
+            "type": "string",
+            "description": "Mensagem do aplicativo",
+            "example": "Um aplicativo incrível"
+          }
+        }
+      },
+      "Categoria": {
+        "type": "object",
+        "properties": {
+          "catID": {
+            "type": "integer",
+            "description": "ID único da categoria"
+          },
+          "catNome": {
+            "type": "string",
+            "description": "Nome da categoria"
+          }
+        }
+      }
+    }
+  }
+}

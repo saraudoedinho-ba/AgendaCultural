@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CidadesService } from '../../services/cidades.service';
 import { ArtistasSearchService, ArtistaSearchResult } from '../../services/artistas-search.service';
+import { ESPECIALIDADES } from '../../constants/especialidades';
   
 @Component({  
   selector: 'app-encontrar-artista',  
@@ -28,6 +29,8 @@ export class EncontrarArtistaComponent implements OnInit {
   filtroEstado = '';
   filtroCidade = '';
   filtroCategoria = '';
+
+  especialidades = ESPECIALIDADES;
 
   private coresCards = ['purple-bg', 'purple-bg', 'purple-bg']; // SUGGESTED EDIT
 

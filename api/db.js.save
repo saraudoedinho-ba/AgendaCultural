@@ -1,0 +1,18 @@
+const mysql = require('mysql2');
+
+const connection = mysql.createConnection({
+  host: 'vps60992.publiccloud.com.br',
+  user: 'edison',
+  password: 'Ebr715900!',
+  database: 'desk'
+});
+
+connection.connect((err) => {
+  if (err) {
+    console.error('Erro ao conectar ao MySQL:', err);
+    process.exit(1);
+  }
+  console.log('🟢 Conectado ao MySQL');
+});
+
+module.exports = connection;

@@ -1,0 +1,459 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de Login",
+    "version": "1.0.0",
+    "description": "API para autenticação de usuários"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Servidor local"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Login",
+      "description": "Autenticação de usuários"
+    },
+    {
+      "name": "Músicos",
+      "description": "Gerenciamento de músicos"
+    }
+  ],
+  "paths": {
+    "/api/login": {
+      "post": {
+        "tags": ["Login"],
+        "summary": "Autenticar usuário",
+        "description": "Realiza login no sistema",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["usuEmail", "usuSenha"],
+                "properties": {
+                  "usuEmail": {
+                    "type": "string",
+                    "example": "usuario@exemplo.com"
+                  },
+                  "usuSenha": {
+                    "type": "string",
+                    "example": "senha123"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login bem-sucedido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "usuario": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "example": 1
+                        },
+                        "usuNome": {
+                          "type": "string",
+                          "example": "João Silva"
+                        },
+                        "usuEmail": {
+                          "type": "string",
+                          "example": "usuario@exemplo.com"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Email e senha obrigatórios"
+          },
+          "401": {
+            "description": "Credenciais inválidas"
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      }
+    },
+    "/api/musicos": {
+      "post": {
+        "tags": ["Músicos"],
+        "summary": "Cadastrar novo músico",
+        "description": "Cria um novo cadastro de músico no sistema",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["nome", "email"],
+                "properties": {
+                  "nome": {
+                    "type": "string",
+                    "example": "EDISON BARBOSA DA ROCHA",
+                    "description": "Nome artístico ou nome da banda"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "ba.edison@gmail.com",
+                    "description": "E-mail para contato (deve ser único)"
+                  },
+                  "senha": {
+                    "type": "string",
+                    "example": "senha123",
+                    "description": "Senha (opcional - será gerada uma temporária se não fornecida)"
+                  },
+                  "telefone": {
+                    "type": "string",
+                    "example": "11913227557",
+                    "description": "Telefone de contato"
+                  },
+                  "tipoServico": {
+                    "type": "string",
+                    "example": "Banda de Rock",
+                    "description": "Tipo de serviço oferecido"
+                  },
+                  "localizacao": {
+                    "type": "string",
+                    "example": "Salvador",
+                    "description": "Localização (cidade/estado)"
+                  },
+                  "descricao": {
+                    "type": "string",
+                    "example": "Banda de rock com 10 anos de estrada",
+                    "description": "Descrição breve sobre o artista"
+                  },
+                  "site": {
+                    "type": "string",
+                    "example": "www.siteartista.com",
+                    "description": "Site do artista"
+                  },
+                  "redesSociais": {
+                    "type": "object",
+                    "properties": {
+                      "facebook": {
+                        "type": "string",
+                        "example": "facebook.com/artista",
+                        "description": "Facebook do artista"
+                      },
+                      "instagram": {
+                        "type": "string",
+                        "example": "@artista",
+                        "description": "Instagram do artista"
+                      },
+                      "tiktok": {
+                        "type": "string",
+                        "example": "@artista",
+                        "description": "TikTok do artista"
+                      }
+                    },
+                    "description": "Redes sociais do artista"
+                  },
+                  "drive": {
+                    "type": "string",
+                    "example": "https://drive.google.com/...",
+                    "description": "Link do Google Drive com materiais"
+                  },
+                  "videos": {
+                    "type": "array",
+                    "maxItems": 4,
+                    "items": {
+                      "type": "string"
+                    },
+                    "example": [
+                      "https://youtube.com/watch?v=...",
+                      "https://youtube.com/watch?v=...",
+                      "https://youtube.com/watch?v=...",
+                      "https://youtube.com/watch?v=..."
+                    ],
+                    "description": "Array com até 4 links de vídeos do YouTube"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Músico cadastrado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mensagem": {
+                      "type": "string",
+                      "example": "Músico cadastrado com sucesso"
+                    },
+                    "id": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "nome": {
+                      "type": "string",
+                      "example": "EDISON BARBOSA DA ROCHA"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "ba.edison@gmail.com"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos ou email já cadastrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "erro": {
+                      "type": "string",
+                      "example": "Nome e email são obrigatórios"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do servidor"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Músicos"],
+        "summary": "Listar músicos",
+        "description": "Retorna todos os músicos cadastrados",
+        "responses": {
+          "200": {
+            "description": "Lista de músicos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "musNomeArtistico": {
+                        "type": "string"
+                      },
+                      "musEmail": {
+                        "type": "string"
+                      },
+                      "musTelefone": {
+                        "type": "string"
+                      },
+                      "musTipoServico": {
+                        "type": "string"
+                      },
+                      "musLocalizacao": {
+                        "type": "string"
+                      },
+                      "musEstado": {
+                        "type": "string"
+                      },
+                      "musCidade": {
+                        "type": "string"
+                      },
+                      "musGeneros": {
+                        "type": "string"
+                      },
+                      "musDescricao": {
+                        "type": "string"
+                      },
+                      "musDescricaoBreve": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/musicos/{id}": {
+      "get": {
+        "tags": ["Músicos"],
+        "summary": "Buscar músico por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Músico encontrado"
+          },
+          "404": {
+            "description": "Músico não encontrado"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Músicos"],
+        "summary": "Atualizar músico",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "musNomeArtistico": {
+                    "type": "string",
+                    "description": "Nome artístico"
+                  },
+                  "musTelefone": {
+                    "type": "string",
+                    "description": "Telefone"
+                  },
+                  "musTipoServico": {
+                    "type": "string",
+                    "description": "Tipo de serviço"
+                  },
+                  "musLocalizacao": {
+                    "type": "string",
+                    "description": "Localização"
+                  },
+                  "musEstado": {
+                    "type": "string",
+                    "description": "Estado"
+                  },
+                  "musCidade": {
+                    "type": "string",
+                    "description": "Cidade"
+                  },
+                  "musGeneros": {
+                    "type": "string",
+                    "description": "Gêneros musicais"
+                  },
+                  "musContato": {
+                    "type": "string",
+                    "description": "Contato"
+                  },
+                  "musDescricao": {
+                    "type": "string",
+                    "description": "Descrição completa"
+                  },
+                  "musDescricaoBreve": {
+                    "type": "string",
+                    "description": "Descrição breve"
+                  },
+                  "musRedesSociais": {
+                    "type": "string",
+                    "description": "Redes sociais (JSON string)"
+                  },
+                  "musSiteArtista": {
+                    "type": "string",
+                    "description": "Site do artista"
+                  },
+                  "musFacebook": {
+                    "type": "string",
+                    "description": "Facebook"
+                  },
+                  "musInstagram": {
+                    "type": "string",
+                    "description": "Instagram"
+                  },
+                  "musTiktok": {
+                    "type": "string",
+                    "description": "TikTok"
+                  },
+                  "musDriveGoogle": {
+                    "type": "string",
+                    "description": "Google Drive"
+                  },
+                  "musVideo01Youtube": {
+                    "type": "string",
+                    "description": "Vídeo 1 do YouTube"
+                  },
+                  "musVideo02Youtube": {
+                    "type": "string",
+                    "description": "Vídeo 2 do YouTube"
+                  },
+                  "musVideo03Youtube": {
+                    "type": "string",
+                    "description": "Vídeo 3 do YouTube"
+                  },
+                  "musVideo04Youtube": {
+                    "type": "string",
+                    "description": "Vídeo 4 do YouTube"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Músico atualizado"
+          },
+          "404": {
+            "description": "Músico não encontrado"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Músicos"],
+        "summary": "Deletar músico",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Músico deletado"
+          },
+          "404": {
+            "description": "Músico não encontrado"
+          }
+        }
+      }
+    }
+  }
+}
