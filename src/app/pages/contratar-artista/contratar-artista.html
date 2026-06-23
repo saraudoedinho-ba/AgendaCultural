@@ -1,0 +1,97 @@
+<app-header></app-header>
+
+<div class="contratar-container">
+  <button class="btn-voltar" (click)="voltar()">
+    <span class="seta">←</span> Voltar para o perfil
+  </button>
+
+  <div *ngIf="carregando" class="loading">Carregando dados...</div>
+  <div *ngIf="erro" class="erro">{{ erro }}</div>
+
+  <div *ngIf="!carregando && artista" class="contratar-card">
+    <div class="contratar-header">
+      <h1>Contratar {{ artista.musNomeArtistico }}</h1>
+      <p class="subtitulo">
+        {{ artista.musEspecialidade || artista.musTipoServico || 'Artista' }} •
+        {{ artista.musCidade }}{{ artista.musCidade && artista.musEstado ? ', ' : '' }}{{ artista.musEstado }}
+      </p>
+    </div>
+
+    <div *ngIf="sucesso" class="sucesso-mensagem">
+      <h2>✓ Proposta enviada!</h2>
+      <p>Entraremos em contato em breve.</p>
+      <button class="btn-primary" (click)="voltar()">Voltar para o perfil</button>
+    </div>
+
+    <form *ngIf="!sucesso" (ngSubmit)="enviarProposta()" class="contratar-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="nome">Nome completo *</label>
+          <input id="nome" type="text" [(ngModel)]="form.nome" name="nome" placeholder="Seu nome" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input id="email" type="email" [(ngModel)]="form.email" name="email" placeholder="seu@email.com" required />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="telefone">Telefone</label>
+          <input id="telefone" type="tel" [(ngModel)]="form.telefone" name="telefone" placeholder="(00) 00000-0000" />
+        </div>
+        <div class="form-group">
+          <label for="dataEvento">Data do evento *</label>
+          <input id="dataEvento" type="date" [(ngModel)]="form.dataEvento" name="dataEvento" required />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="cidade">Cidade *</label>
+          <input id="cidade" type="text" [(ngModel)]="form.cidade" name="cidade" placeholder="Cidade do evento" required />
+        </div>
+        <div class="form-group">
+          <label for="estado">Estado *</label>
+          <input id="estado" type="text" [(ngModel)]="form.estado" name="estado" placeholder="UF" required />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="tipoEvento">Tipo de evento</label>
+          <select id="tipoEvento" [(ngModel)]="form.tipoEvento" name="tipoEvento">
+            <option value="">Selecione...</option>
+            <option value="Casamento">Casamento</option>
+            <option value="Aniversário">Aniversário</option>
+            <option value="Corporativo">Corporativo</option>
+            <option value="Formatura">Formatura</option>
+            <option value="Outro">Outro</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="duracao">Duração</label>
+          <select id="duracao" [(ngModel)]="form.duracao" name="duracao">
+            <option value="">Selecione...</option>
+            <option value="3 horas">3 horas</option>
+            <option value="4 horas">4 horas</option>
+            <option value="6 horas">6 horas</option>
+            <option value="8 horas">8 horas</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="mensagem">Mensagem / Observações</label>
+        <textarea id="mensagem" [(ngModel)]="form.mensagem" name="mensagem" rows="4" placeholder="Detalhes do evento, local, horário..."></textarea>
+      </div>
+
+      <button type="submit" class="btn-enviar" [disabled]="enviando">
+        {{ enviando ? 'Enviando...' : 'Enviar Proposta' }}
+      </button>
+    </form>
+  </div>
+</div>
+
+<br /><br />
+<app-rodape></app-rodape>

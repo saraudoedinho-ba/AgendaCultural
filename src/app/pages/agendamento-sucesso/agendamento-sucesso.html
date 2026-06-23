@@ -1,0 +1,78 @@
+<app-header></app-header>
+
+<div class="sucesso-wrap">
+  <header class="sucesso-banner">
+    <div class="sucesso-titulo">
+      <h1>AGENDAMENTO DE EVENTOS</h1>
+      <p>{{ artista ? 'Músico: ' + artista.musNomeArtistico : 'Músico' }}</p>
+    </div>
+  </header>
+
+  <main class="sucesso-content">
+    <div *ngIf="carregando" class="loading">Carregando...</div>
+    <div *ngIf="erro" class="erro">{{ erro }}</div>
+
+    <div *ngIf="!carregando && artista" class="sucesso-card">
+      <div class="sucesso-icone">✓</div>
+      <h2>Agendamento realizado com sucesso!</h2>
+      <p class="sucesso-descricao">
+        Seu evento foi agendado para <strong>{{ data | date: 'dd/MM/yyyy' }}</strong> no período da <strong>{{ periodo }}</strong>.
+      </p>
+
+      <div class="info-section">
+        <h3>Detalhes do agendamento</h3>
+        <div class="info-grid">
+          <div class="info-item">
+            <span>Data</span>
+            <strong>{{ data | date: 'dd/MM/yyyy' }}</strong>
+          </div>
+          <div class="info-item">
+            <span>Período</span>
+            <strong>{{ periodo }}</strong>
+          </div>
+          <div class="info-item">
+            <span>Horário</span>
+            <strong>{{ horario }}</strong>
+          </div>
+          <div class="info-item">
+            <span>Valor</span>
+            <strong>{{ valor || 'A combinar' }}</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-section">
+        <h3>Dados do músico</h3>
+        <div class="info-lista">
+          <div class="info-linha">
+            <span>Nome</span>
+            <strong>{{ artista.musNomeArtistico }}</strong>
+          </div>
+          <div class="info-linha">
+            <span>Email</span>
+            <strong>{{ artista.musEmail }}</strong>
+          </div>
+          <div class="info-linha">
+            <span>Telefone</span>
+            <strong>{{ artista.musTelefone || 'Não informado' }}</strong>
+          </div>
+          <div class="info-linha">
+            <span>PIX</span>
+            <strong>{{ pix }}</strong>
+          </div>
+          <div class="info-linha" *ngIf="artista.musCidade || artista.musEstado">
+            <span>Localização</span>
+            <strong>{{ artista.musCidade }}{{ artista.musCidade && artista.musEstado ? ' - ' : '' }}{{ artista.musEstado }}</strong>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-voltar-busca" (click)="voltar()">
+        Voltar para a busca
+      </button>
+    </div>
+  </main>
+</div>
+
+<br /><br />
+<app-rodape></app-rodape>

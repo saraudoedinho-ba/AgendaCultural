@@ -28,7 +28,7 @@ export class DetalhesArtistaComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
+    public router: Router,
     private artistasSearchService: ArtistasSearchService,
     private sanitizer: DomSanitizer
   ) {}

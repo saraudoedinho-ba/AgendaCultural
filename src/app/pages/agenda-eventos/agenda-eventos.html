@@ -2,8 +2,9 @@
 <div class="app-wrap">
   <div class="toast" [ngClass]="[toastType, toastVisible ? 'show' : '']">{{ toastMessage }}</div>
   <header class="dashboard-banner-img">
-    <div style="width:100%">
-      <img src="/assets/images/dashboard.png" alt="Banner Agendamento de Eventos" class="banner-img" />
+    <div class="agenda-titulo">
+      <h1>AGENDAMENTO DE EVENTOS</h1>
+      <p>{{ musicianLabel }}</p>
     </div>
   </header>
 
@@ -160,38 +161,10 @@
             <button type="button" class="btn-secondary" (click)="clearForm()">LIMPAR</button>
           </div>
 
-          <div class="button-row">
-            <a class="btn-ghost" href="mailto:agendamento@example.com">EMAIL</a>
-            <button type="button" class="btn-ghost" (click)="copyPix()">PIX</button>
-          </div>
         </form>
       </div>
 
-      <div class="column card card-events">
-        <h3>AGENDADOS</h3>
-        <div class="events-list" *ngIf="eventsSorted.length; else emptyEvents">
-          <div class="event-card" *ngFor="let event of eventsSorted">
-            <div>
-              <div class="event-name">{{ event.full_name }}</div>
-              <div class="event-info">{{ event.date }} • {{ event.period }}</div>
-            </div>
-            <button class="delete-btn" (click)="openDeleteModal(event)">✖</button>
-          </div>
-        </div>
-        <ng-template #emptyEvents>
-          <p class="empty-text">Nenhum agendamento</p>
-        </ng-template>
-      </div>
     </section>
   </main>
 
-  <div class="modal-overlay" [class.active]="deleteModalOpen">
-    <div class="modal-card">
-      <p>Deseja cancelar este agendamento?</p>
-      <div class="modal-actions">
-        <button class="btn-delete" (click)="confirmDelete()">Sim, cancelar</button>
-        <button class="btn-ghost" (click)="cancelDelete()">Não</button>
-      </div>
-    </div>
-  </div>
 </div>

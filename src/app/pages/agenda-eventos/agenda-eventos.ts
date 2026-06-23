@@ -3,9 +3,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { MusicosService, MusicoAPI } from '../../services/musicos.service';
+import { ArtistasSearchService, ArtistaSearchResult } from '../../services/artistas-search.service';
 import { HeaderComponent } from '../../components/header/header';
 
 interface BookingEvent {
@@ -33,7 +34,7 @@ interface BookingEvent {
 export class AgendaEventos implements OnInit {
   usuario = '';
   carregando = true;
-  musico: Partial<MusicoAPI> = {};
+  musico: Partial<MusicoAPI | ArtistaSearchResult> = {};
   pagamentoRealizado = false;
 
   allEvents: BookingEvent[] = [];
@@ -44,8 +45,6 @@ export class AgendaEventos implements OnInit {
   selectedPeriod: string | null = null;
   selectedTime: string | null = null;
   timePanelVisible = false;
-  deleteModalOpen = false;
-  deleteTarget: BookingEvent | null = null;
 
   months = [
     'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
@@ -105,22 +104,44 @@ export class AgendaEventos implements OnInit {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private authService: AuthService,
-    private musicosService: MusicosService
+    private musicosService: MusicosService,
+    private artistasSearchService: ArtistasSearchService
   ) {}
 
   ngOnInit() {
-    if (!this.authService.isLogado()) {
-      this.router.navigate(['/login']);
-      return;
+    const artistaId = Number(this.route.snapshot.paramMap.get('id'));
+
+    if (artistaId) {
+      this.carregarArtista(artistaId);
+    } else {
+      if (!this.authService.isLogado()) {
+        this.router.navigate(['/login']);
+        return;
+      }
+      this.usuario = localStorage.getItem('usuario') || '';
+      this.pagamentoRealizado = localStorage.getItem('pagamentoRealizado') === 'true';
+      this.carregarPerfil();
     }
 
-    this.usuario = localStorage.getItem('usuario') || '';
-    this.pagamentoRealizado = localStorage.getItem('pagamentoRealizado') === 'true';
-    this.carregarPerfil();
     this.initYears();
     this.loadEvents();
     this.generateCalendar();
+  }
+
+  carregarArtista(id: number) {
+    this.carregando = true;
+    this.artistasSearchService.buscarPorId(id).subscribe({
+      next: (artista) => {
+        this.musico = artista;
+        this.carregando = false;
+      },
+      error: () => {
+        this.carregando = false;
+        this.router.navigate(['/encontrar-artista']);
+      }
+    });
   }
 
   carregarPerfil() {
@@ -209,8 +230,7 @@ export class AgendaEventos implements OnInit {
 
     const booked = this.isPeriodBooked(periodKey);
     if (booked) {
-      this.deleteTarget = booked;
-      this.deleteModalOpen = true;
+      this.showToast('Este período já está agendado.', 'error');
       return;
     }
 
@@ -357,39 +377,17 @@ export class AgendaEventos implements OnInit {
 
     this.allEvents.push(newEvent);
     this.saveEvents();
-    this.showToast('Evento agendado com sucesso!', 'success');
-    this.clearForm();
-    this.selectedDate = null;
-    this.selectedPeriod = null;
-    this.selectedTime = null;
-    this.timePanelVisible = false;
-    this.generateCalendar();
-  }
 
-  get eventsSorted() {
-    return [...this.allEvents].sort((a, b) => a.date.localeCompare(b.date));
-  }
+    const periodo = this.periods.find(p => p.key === this.selectedPeriod);
 
-  openDeleteModal(event: BookingEvent) {
-    this.deleteTarget = event;
-    this.deleteModalOpen = true;
-  }
-
-  cancelDelete() {
-    this.deleteTarget = null;
-    this.deleteModalOpen = false;
-  }
-
-  confirmDelete() {
-    if (!this.deleteTarget) {
-      return;
-    }
-    this.allEvents = this.allEvents.filter(event => event.id !== this.deleteTarget?.id);
-    this.saveEvents();
-    this.deleteModalOpen = false;
-    this.showToast('Agendamento cancelado.', 'success');
-    this.deleteTarget = null;
-    this.generateCalendar();
+    this.router.navigate(['/agendamento-sucesso', this.musico?.id], {
+      queryParams: {
+        data: this.selectedDate,
+        periodo: this.selectedPeriod,
+        horario: periodo?.time,
+        valor: this.totalPrice
+      }
+    });
   }
 
   onLogoError(event: Event) {

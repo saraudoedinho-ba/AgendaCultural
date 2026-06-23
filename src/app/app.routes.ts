@@ -5,6 +5,8 @@ import { CadastroComponent } from './pages/cadastro/cadastro';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { LoginComponent } from './pages/login/login.component';
 import { DetalhesArtistaComponent } from './pages/detalhes-artista/detalhes-artista';
+import { AgendaEventos } from './pages/agenda-eventos/agenda-eventos';
+import { AgendamentoSucessoComponent } from './pages/agendamento-sucesso/agendamento-sucesso';
   
 export const routes: Routes = [  
   {path: '', component: HomeComponent},  
@@ -13,5 +15,7 @@ export const routes: Routes = [
   {path: 'encontrar-artista', component: EncontrarArtistaComponent},  
   {path: 'cadastro-artista', component: CadastroComponent},  
   {path: 'detalhes-artista/:id', component: DetalhesArtistaComponent},
+  {path: 'contratar-artista/:id', component: AgendaEventos},
+  {path: 'agendamento-sucesso/:id', component: AgendamentoSucessoComponent},
   {path: '**', redirectTo: ''}  
 ]; 
