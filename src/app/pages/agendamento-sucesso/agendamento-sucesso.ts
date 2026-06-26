@@ -4,6 +4,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ArtistasSearchService, ArtistaSearchResult } from '../../services/artistas-search.service';
 import { HeaderComponent } from '../../components/header/header';
 import { Rodape } from '../../components/rodape/rodape';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-agendamento-sucesso',
@@ -25,7 +26,8 @@ export class AgendamentoSucessoComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private artistasSearchService: ArtistasSearchService
+    private artistasSearchService: ArtistasSearchService,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {
@@ -65,5 +67,28 @@ export class AgendamentoSucessoComponent implements OnInit {
 
   get pix(): string {
     return this.artista?.musTelefone || 'Não informado';
+  }
+
+  get linkWhatsApp(): SafeUrl {
+    const telefone = this.artista?.musTelefone || '';
+    // Remove caracteres não numéricos
+    const telLimpo = telefone.replace(/\D/g, '');
+    
+    if (!telLimpo) {
+      return this.sanitizer.bypassSecurityTrustUrl('#');
+    }
+
+    const mensagem = encodeURIComponent(
+      `Olá ${this.artista?.musNomeArtistico || 'artista'}! ` +
+      `Gostaria de confirmar os detalhes do meu evento agendado para o dia ${this.data} no período da ${this.periodo}.`
+    );
+    
+    const url = `https://wa.me/55${telLimpo}?text=${mensagem}`;
+    return this.sanitizer.bypassSecurityTrustUrl(url);
+  }
+
+  get temWhatsApp(): boolean {
+    const telefone = this.artista?.musTelefone || '';
+    return telefone.replace(/\D/g, '').length >= 10;
   }
 }

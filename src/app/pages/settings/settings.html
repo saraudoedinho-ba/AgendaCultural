@@ -1,0 +1,149 @@
+<!-- Header -->
+<header class="dashboard-header">
+  <div class="header-content">
+    <div>
+      <h1>Configurações</h1>
+      <p>Gerencie seus dados de perfil</p>
+    </div>
+  </div>
+</header>
+
+<!-- Main Content -->
+<main class="dashboard-content settings-tab">
+  <div class="settings-header">
+    <h2>Meu Perfil</h2>
+    <div class="settings-actions">
+      <button type="button" class="btn-settings btn-settings-outline" (click)="onCancel()">Cancelar</button>
+      <button type="button" class="btn-settings" (click)="onSubmit()" [disabled]="salvando">
+        {{ salvando ? 'Salvando...' : 'Salvar alterações' }}
+      </button>
+    </div>
+  </div>
+
+  <p class="settings-description">
+    Mantenha seus dados atualizados para que os contratantes possam encontrar você facilmente.
+    Para mais informações sobre como preencher seu perfil, consulte <a href="#" class="settings-link">nossos tópicos de suporte aqui</a>.
+  </p>
+
+  <div class="settings-stats">
+    <div class="settings-card">
+      <span class="settings-card-label">Shows realizados</span>
+      <span class="settings-card-value">12</span>
+    </div>
+    <div class="settings-card">
+      <span class="settings-card-label">Clientes</span>
+      <span class="settings-card-value">8</span>
+    </div>
+  </div>
+
+  <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()" class="settings-form">
+    <!-- Dados Pessoais -->
+    <div class="settings-section">
+      <h3><i class="fas fa-user"></i> Dados Pessoais</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nome Artístico *</label>
+          <input type="text" formControlName="nomeArtistico" placeholder="Digite seu nome artístico">
+        </div>
+        <div class="form-group">
+          <label>Email *</label>
+          <input type="email" formControlName="email" placeholder="seu@email.com">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Telefone</label>
+          <input type="text" formControlName="telefone" placeholder="(00) 00000-0000">
+        </div>
+        <div class="form-group">
+          <label>Contato</label>
+          <input type="text" formControlName="contato" placeholder="Informações de contato">
+        </div>
+      </div>
+    </div>
+
+    <!-- Localização -->
+    <div class="settings-section">
+      <h3><i class="fas fa-map-marker-alt"></i> Localização</h3>
+      <div class="form-row three-cols">
+        <div class="form-group">
+          <label>Estado</label>
+          <select formControlName="estado" (change)="aoSelecionarEstado()">
+            <option value="">Selecione seu estado</option>
+            <option *ngFor="let uf of estados" [value]="uf.sigla">{{ uf.nome }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Cidade</label>
+          <select formControlName="cidade">
+            <option value="">Selecione a cidade</option>
+            <option *ngFor="let cidade of cidadesDisponiveis" [value]="cidade">{{ cidade }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Bairro</label>
+          <input type="text" formControlName="bairro" placeholder="Bairro">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Endereço Completo</label>
+        <input type="text" formControlName="enderecoCompleto" placeholder="Rua, Bloco, Número">
+      </div>
+    </div>
+
+    <!-- Informações Artísticas -->
+    <div class="settings-section">
+      <h3><i class="fas fa-music"></i> Informações Artísticas</h3>
+      <div class="form-group">
+        <label>Tipo de Serviço / Gênero</label>
+        <select multiple formControlName="tipoServico" class="multi-select">
+          <option *ngFor="let genero of generosList" [value]="genero">{{ genero }}</option>
+        </select>
+        <small>* Mantenha CTRL pressionado para selecionar múltiplos gêneros</small>
+      </div>
+      <div class="form-group">
+        <label>Breve Descrição</label>
+        <input type="text" formControlName="breveDescricao" placeholder="Fale sobre você">
+      </div>
+      <div class="form-group">
+        <label>Descrição Completa</label>
+        <textarea formControlName="descricaoCompleta" placeholder="Conte mais sobre sua carreira e experiências..."></textarea>
+      </div>
+    </div>
+
+    <!-- Redes Sociais -->
+    <div class="settings-section">
+      <h3><i class="fas fa-phone-alt"></i> Contato e Redes Sociais</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Spotify</label>
+          <input type="text" formControlName="spotify" placeholder="Link do Spotify">
+        </div>
+        <div class="form-group">
+          <label>Site do Artista</label>
+          <input type="text" formControlName="siteArtista" placeholder="https://www.site.com.br">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Facebook</label>
+          <input type="text" formControlName="facebook" placeholder="@seuperfil">
+        </div>
+        <div class="form-group">
+          <label>TikTok</label>
+          <input type="text" formControlName="tiktok" placeholder="@seuperfil">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Outras Redes</label>
+          <input type="text" formControlName="outrasRedes" placeholder="Instagram, Twitter, etc.">
+        </div>
+        <div class="form-group">
+          <label>Google Drive</label>
+          <input type="text" formControlName="googleDrive" placeholder="Link do Google Drive">
+        </div>
+      </div>
+    </div>
+  </form>
+</main>

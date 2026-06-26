@@ -154,6 +154,50 @@
   padding-bottom: 0;
 }
 
+/* Botão WhatsApp */
+.btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+  color: #ffffff;
+  width: 100%;
+  padding: 16px 24px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 16px;
+  border: none;
+  box-sizing: border-box;
+}
+
+.btn-whatsapp:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+  color: #ffffff;
+}
+
+.btn-whatsapp:active {
+  transform: translateY(0);
+}
+
+.whatsapp-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+}
+
+.whatsapp-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
 .btn-voltar-busca {
   background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-bright-cyan) 100%);
   color: var(--primary-dark);
@@ -164,6 +208,7 @@
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
+  width: 100%;
 }
 
 .btn-voltar-busca:hover {
@@ -184,5 +229,10 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
+  }
+
+  .btn-whatsapp {
+    font-size: 1rem;
+    padding: 14px 20px;
   }
 }

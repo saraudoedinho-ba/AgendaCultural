@@ -1,0 +1,135 @@
+<!-- Header -->
+<header class="dashboard-header">
+  <div class="header-content">
+    <div>
+      <h1>Faturamento</h1>
+      <p>Gerencie suas faturas e pagamentos</p>
+    </div>
+  </div>
+</header>
+
+<!-- Main Content -->
+<main class="dashboard-content billing-tab">
+  <!-- Info Banner -->
+  <div class="billing-info-banner">
+    <div class="banner-content">
+      <span class="banner-icon">ℹ️</span>
+      <p>Forneça as informações fiscais necessárias para emitir a sua fatura eletrônica.</p>
+    </div>
+    <div class="banner-actions">
+      <button class="btn-banner">Atualizar</button>
+    </div>
+  </div>
+
+  <h2>Faturamento</h2>
+  <p class="tab-subtitle">Gerencie suas faturas e pagamentos.</p>
+
+  <!-- Billing Summary Cards -->
+  <div class="billing-summary">
+    <div class="billing-card">
+      <div class="billing-card-header">
+        <span class="billing-card-label">Saldo devedor</span>
+        <button class="btn-billing-action">Pagamento</button>
+      </div>
+      <div class="billing-card-value">
+        <span>{{ totalBalance | currency: 'BRL' }}</span>
+        <span class="billing-check" *ngIf="totalBalance === 0">✓</span>
+      </div>
+    </div>
+
+    <div class="billing-card">
+      <div class="billing-card-header">
+        <span class="billing-card-label">Ciclo de cobrança</span>
+        <span class="billing-info-icon">ⓘ</span>
+      </div>
+      <p class="billing-card-text">Nenhuma assinatura foi adicionada a esta conta.</p>
+    </div>
+
+    <div class="billing-card">
+      <div class="billing-card-header">
+        <span class="billing-card-label">Método de pagamento</span>
+        <button class="btn-billing-action">Editar</button>
+      </div>
+      <div class="billing-payment-method">
+        <strong>{{ paymentMethod }}</strong>
+        <span class="billing-status-active">
+          <span class="status-dot"></span>
+          Ativo
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Payments -->
+  <div class="billing-section">
+    <h3>Pagamento</h3>
+
+    <div class="invoice-search">
+      <input
+        type="text"
+        [(ngModel)]="invoiceSearchTerm"
+        (input)="filterInvoices()"
+        placeholder="Pesquise por número de pagamento ou pedido"
+        class="invoice-search-input"
+      />
+      <span class="invoice-search-icon">🔍</span>
+      <button class="btn-filter" title="Filtros">☰</button>
+    </div>
+
+    <div class="invoice-table-container">
+      <table class="invoice-table">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Prazo de pagamento</th>
+            <th>Descrição</th>
+            <th>Número da fatura</th>
+            <th>Método</th>
+            <th>Total</th>
+            <th>Saldo devedor</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let invoice of filteredInvoices">
+            <td>{{ invoice.date | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ invoice.dueDate | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ invoice.description }}</td>
+            <td>{{ invoice.number }}</td>
+            <td>{{ invoice.method }}</td>
+            <td>{{ invoice.total | currency: 'BRL' }}</td>
+            <td>{{ invoice.balance | currency: 'BRL' }}</td>
+            <td>
+              <span class="invoice-status-badge" [class]="getInvoiceStatusClass(invoice.status)">
+                {{ getInvoiceStatusLabel(invoice.status) }}
+              </span>
+            </td>
+            <td>
+              <button class="btn-download" title="Download">⬇</button>
+            </td>
+          </tr>
+          <tr *ngIf="filteredInvoices.length === 0">
+            <td colspan="9" class="invoice-empty">Nenhum pagamento encontrado</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="invoice-pagination">
+      <div class="pagination-left">
+        <span>Linhas por página:</span>
+        <select class="pagination-select">
+          <option>10</option>
+          <option>25</option>
+          <option>50</option>
+        </select>
+      </div>
+      <div class="pagination-right">
+        <span>1 - {{ filteredInvoices.length }}</span>
+        <button class="btn-pagination" disabled>◀</button>
+        <button class="btn-pagination" disabled>▶</button>
+      </div>
+    </div>
+  </div>
+</main>

@@ -171,6 +171,37 @@
     width: min(560px, calc(100% - 40px));
   }
 
+  .rodape__brand,
+  .rodape__links,
+  .rodape__sugestoes {
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .rodape__logoLinha {
+    justify-content: center;
+  }
+
+  .rodape__links a,
+  .rodape__email {
+    display: inline-block;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .rodape__links a + a {
+    margin-top: 8px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .rodape__botoes {
+    justify-content: center;
+    width: 100%;
+  }
+
   .rodape__copyright {
     margin-top: 34px;
     padding: 0 20px;

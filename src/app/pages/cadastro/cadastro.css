@@ -18,16 +18,20 @@
 }
 
 .icon-mic {
-  background-color: #00c2ff;
-  width: 50px;
-  height: 50px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 15px;
-  color: #fff;
-  font-size: 24px;
+  overflow: hidden;
+}
+
+.icon-mic .logo-cadastro {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .header h1 {
@@ -111,6 +115,13 @@ input:focus, select:focus, textarea:focus {
   border: 1px solid #2d3748;
   border-radius: 8px;
   padding: 8px 15px;
+  flex-wrap: wrap;
+}
+
+.file-input-wrapper span {
+  font-size: 13px;
+  color: #a0aec0;
+  word-break: break-word;
 }
 
 .btn-file {
@@ -176,6 +187,7 @@ textarea {
   gap: 10px;
   margin-bottom: 10px;
   font-weight: 500;
+  flex-wrap: wrap;
 }
 
 .sub-info {
@@ -224,6 +236,7 @@ textarea {
 .btn-cancel:hover {
   background-color: rgba(255, 255, 255, 0.05);
 }
+
 /* Grid para as especialidades - 3 colunas conforme imagem */
 .especialidades-grid {
   display: grid;
@@ -251,29 +264,83 @@ textarea {
   user-select: none;
 }
 
-/* Responsivo para telas menores */
+/* Responsividade */
 @media (max-width: 768px) {
+  :host {
+    padding: 20px 16px;
+  }
+
+  .header {
+    margin-bottom: 25px;
+  }
+
+  .icon-mic {
+    width: 70px;
+    height: 70px;
+  }
+
+  .header h1 {
+    font-size: 24px;
+  }
+
+  .form-card {
+    padding: 20px;
+  }
+
+  .section-title {
+    font-size: 16px;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+  }
+
+  .checkbox-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .actions {
+    grid-template-columns: 1fr;
+  }
+
+  .sub-info {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
   .especialidades-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 480px) {
+  :host {
+    padding: 16px 12px;
+  }
+
+  .header h1 {
+    font-size: 20px;
+  }
+
+  .icon-mic {
+    width: 60px;
+    height: 60px;
+  }
+
+  .form-card {
+    padding: 16px;
+  }
+
+  .checkbox-grid,
   .especialidades-grid {
     grid-template-columns: 1fr;
   }
-}
 
-
-/* Responsividade */
-@media (max-width: 600px) {
-  .row {
-    grid-template-columns: 1fr;
-  }
-  .checkbox-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-  .actions {
-    grid-template-columns: 1fr;
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  select,
+  textarea {
+    font-size: 16px;
   }
 }

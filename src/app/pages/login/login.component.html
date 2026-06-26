@@ -1,10 +1,10 @@
 <div class="login-container">
-  <div class="login-card">
-    <div class="login-header">
-      <h1>Login</h1>
-      <p>Acesse o Dashboard</p>
-    </div>
+  <div class="login-header">
+    <h1>Login</h1>
+    <p>Acesse o Dashboard</p>
+  </div>
 
+  <div class="login-card">
     <form class="login-form" (submit)="login(); $event.preventDefault()">
       @if (erro) {
         <div class="erro-message">

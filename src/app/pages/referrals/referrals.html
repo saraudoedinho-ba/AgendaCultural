@@ -1,0 +1,38 @@
+<!-- Header -->
+<header class="dashboard-header">
+  <div class="header-content">
+    <div>
+      <h1>Indicações</h1>
+      <p>Compartilhe e ganhe benefícios</p>
+    </div>
+  </div>
+</header>
+
+<!-- Main Content -->
+<main class="dashboard-content referrals-tab">
+  <div class="referrals-header">
+    <h2>Indique 5 pessoas e fique sem pagar o mês</h2>
+    <div class="referrals-actions">
+      <button class="btn-referral" (click)="copyLink()">Copiar link</button>
+      <button class="btn-referral" (click)="shareLink()">Compartilhar</button>
+      <button class="btn-referral" (click)="inviteByEmail()">Convidar por e-mail</button>
+    </div>
+  </div>
+
+  <p class="referrals-description">
+    Compartilhe a Agenda Cultural com amigos e familiares. Quando seus amigos se cadastrarem,
+    cada um de vocês receberá um mês de serviço gratuito 30 dias após eles realizarem a ativação.
+    Para mais informações, consulte <a href="#" class="referrals-link">nossos tópicos de suporte aqui</a>.
+  </p>
+
+  <div class="referrals-stats">
+    <div class="referrals-card">
+      <span class="referrals-card-label">Usuários indicados</span>
+      <span class="referrals-card-value">{{ referredUsers }}</span>
+    </div>
+    <div class="referrals-card">
+      <span class="referrals-card-label">Meses de crédito de serviços recebidos</span>
+      <span class="referrals-card-value">{{ receivedCredits }}</span>
+    </div>
+  </div>
+</main>

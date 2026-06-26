@@ -1,11 +1,10 @@
 ﻿:host {
   display: block;
-  font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-family: 'Poppins', 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
 .hero-section {
-  background-color: #051937; /* Fundo azul escuro profundo */
-  background-image: radial-gradient(circle at center, #0a2a5a 0%, #051937 100%);
+  background: linear-gradient(90deg, #001a33 0%, #002b4d 50%, #001a33 100%);
   min-height: 50vh;
   display: flex;
   align-items: center;

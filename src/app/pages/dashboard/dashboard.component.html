@@ -1,310 +1,46 @@
 <app-header></app-header>
 <div class="dashboard-container">
-  <!-- Header -->
-  <header class="dashboard-header">
-    <div class="header-content">
-      <h1>Dashboard do Músico</h1>
-      <p>Gerencie seus shows, clientes e agenda</p>
-    </div>
-  </header>
+  <!-- Sidebar -->
+  <aside class="dashboard-sidebar">
+    <nav class="sidebar-nav">
+      <a
+        *ngFor="let item of menuItems"
+        class="sidebar-item"
+        [class.active]="isActive(item)"
+        [routerLink]="item.route"
+      >
+        <span class="sidebar-icon">
+          <svg [ngSwitch]="item.icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <ng-container *ngSwitchCase="'home'">
+              <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+            </ng-container>
+            <ng-container *ngSwitchCase="'signature'">
+              <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+            </ng-container>
+            <ng-container *ngSwitchCase="'orders'">
+              <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+            </ng-container>
+            <ng-container *ngSwitchCase="'billing'">
+              <path d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+            </ng-container>
+            <ng-container *ngSwitchCase="'referrals'">
+              <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </ng-container>
+            <ng-container *ngSwitchCase="'messages'">
+              <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </ng-container>
+            <ng-container *ngSwitchCase="'settings'">
+              <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+              <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </ng-container>
+          </svg>
+        </span>
+        <span class="sidebar-label">{{ item.label }}</span>
+      </a>
+    </nav>
+  </aside>
 
-  <!-- Navigation Tabs -->
-  <nav class="dashboard-nav">
-    <button
-      class="nav-button"
-      [class.active]="activeTab === 'dashboard'"
-      (click)="activeTab = 'dashboard'"
-    >
-      <img src="assets/images/icones_agenda/dashboard.png" alt="" class="nav-icon" /> Dashboard
-    </button>
-    <button
-      class="nav-button"
-      [class.active]="activeTab === 'shows'"
-      (click)="activeTab = 'shows'"
-    >
-      <img src="assets/images/icones_agenda/meus-shows.png" alt="" class="nav-icon" /> Meus Shows
-    </button>
-    <button
-      class="nav-button"
-      [class.active]="activeTab === 'clients'"
-      (click)="activeTab = 'clients'"
-    >
-      <img src="assets/images/icones_agenda/clientes.png" alt="" class="nav-icon" /> Clientes
-    </button>
-    <button
-      class="nav-button"
-      [class.active]="activeTab === 'leads'"
-      (click)="activeTab = 'leads'"
-    >
-      <img src="assets/images/icones_agenda/leads.png" alt="" class="nav-icon" /> Leads ({{ newLeads }})
-    </button>
-    <button
-      class="nav-button"
-      [class.active]="activeTab === 'block-agenda'"
-      (click)="activeTab = 'block-agenda'"
-    >
-      <img src="assets/images/icones_agenda/bloquear-agenda.png" alt="" class="nav-icon" /> Bloquear Agenda
-    </button>
-  </nav>
-
-  <!-- Main Content -->
-  <main class="dashboard-content">
-    <!-- Dashboard Overview Tab -->
-    <section *ngIf="activeTab === 'dashboard'" class="tab-content">
-      <!-- Subscription / Plan Section -->
-      <section class="subscription-section">
-        <div class="subscription-card">
-          <div class="subscription-info">
-            <h3>📋 Plano Atual</h3>
-            <p class="plan-name">Plano Premium <span class="plan-price">R$ 29,90 / mês</span>
-            <span class="plan-status">✅ Ativo</span>
-          </div>
-          <div class="subscription-actions">
-            <button class="btn-cancel-subscription" (click)="cancelSubscription()">
-              Cancelar Assinatura
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <div class="stats-grid">
-        <div class="stat-card stat-card-shows">
-          <img src="assets/images/icones_agenda/total-shows.png" alt="" class="stat-icon-img" />
-          <div class="stat-info">
-            <h3>Total de Shows</h3>
-            <p class="stat-number">{{ totalShows }}</p>
-          </div>
-        </div>
-
-        <div class="stat-card stat-card-completed">
-          <img src="assets/images/icones_agenda/realizados.png" alt="" class="stat-icon-img" />
-          <div class="stat-info">
-            <h3>Realizados</h3>
-            <p class="stat-number">{{ completedShows }}</p>
-          </div>
-        </div>
-
-        <div class="stat-card stat-card-upcoming">
-          <img src="assets/images/icones_agenda/proximos.png" alt="" class="stat-icon-img" />
-          <div class="stat-info">
-            <h3>Próximos</h3>
-            <p class="stat-number">{{ upcomingShows }}</p>
-          </div>
-        </div>
-
-        <div class="stat-card stat-card-clients">
-          <img src="assets/images/icones_agenda/clientes.png" alt="" class="stat-icon-img" />
-          <div class="stat-info">
-            <h3>Clientes</h3>
-            <p class="stat-number">{{ totalClients }}</p>
-          </div>
-        </div>
-
-        <div class="stat-card stat-card-leads">
-          <img src="assets/images/icones_agenda/leads-novos.png" alt="" class="stat-icon-img" />
-          <div class="stat-info">
-            <h3>Leads Novos</h3>
-            <p class="stat-number">{{ newLeads }}</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Recent Shows -->
-      <section class="recent-section">
-        <h2>Próximos Shows</h2>
-        <div class="recent-list">
-          <div *ngIf="upcomingShows === 0" class="empty-state">
-            <p>Nenhum show agendado</p>
-          </div>
-          <div *ngFor="let show of shows | slice:0:3" class="recent-item" [class]="getStatusClass(show.status)">
-            <div class="recent-item-header">
-              <h4>{{ show.client }}</h4>
-              <span class="status-badge">{{ getStatusLabel(show.status) }}</span>
-            </div>
-            <p class="recent-item-date"><img src="assets/images/icones_agenda/proximos-shows-calendario.png" alt="" class="inline-icon" /> {{ show.date | date: 'dd/MM/yyyy' }}</p>
-            <p class="recent-item-location"><img src="assets/images/icones_agenda/proximos-shows-localizacao.png" alt="" class="inline-icon" /> {{ show.location }}</p>
-          </div>
-        </div>
-      </section>
-    </section>
-
-    <!-- Shows Tab -->
-    <section *ngIf="activeTab === 'shows'" class="tab-content">
-      <h2>Meus Shows</h2>
-      <div class="shows-list">
-        <div *ngIf="shows.length === 0" class="empty-state">
-          <p>Nenhum show registrado</p>
-        </div>
-        <div *ngFor="let show of shows" class="show-card" [class]="getStatusClass(show.status)">
-          <div class="show-card-header">
-            <h3>{{ show.client }}</h3>
-            <div class="show-actions">
-              <span class="status-badge">{{ getStatusLabel(show.status) }}</span>
-              <button class="btn-delete" (click)="deleteShow(show.id)" title="Deletar show">
-                ✕
-              </button>
-            </div>
-          </div>
-          <div class="show-card-body">
-            <p><strong>Data:</strong> {{ show.date | date: 'dd/MM/yyyy' }}</p>
-            <p><strong>Local:</strong> {{ show.location }}</p>
-            <p><strong>Cliente:</strong> {{ show.client }}</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Clients Tab -->
-    <section *ngIf="activeTab === 'clients'" class="tab-content">
-      <h2>Meus Clientes</h2>
-      <div class="clients-grid">
-        <div *ngIf="clients.length === 0" class="empty-state">
-          <p>Nenhum cliente registrado</p>
-        </div>
-        <div *ngFor="let client of clients" class="client-card">
-          <div class="client-header">
-            <h3>{{ client.name }}</h3>
-            <span class="client-shows">{{ client.shows }} show{{ client.shows !== 1 ? 's' : '' }}</span>
-          </div>
-          <div class="client-info">
-            <p><strong>Email:</strong> {{ client.email }}</p>
-            <p><strong>Telefone:</strong> {{ client.phone }}</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Leads Tab -->
-    <section *ngIf="activeTab === 'leads'" class="tab-content">
-      <h2>Leads - Interessados em Contratar</h2>
-      <div class="leads-list">
-        <div *ngIf="leads.length === 0" class="empty-state">
-          <p>Nenhum lead registrado</p>
-        </div>
-        <div *ngFor="let lead of leads" class="lead-card" [class]="getStatusClass(lead.status)">
-          <div class="lead-header">
-            <h3>{{ lead.name }}</h3>
-            <div class="lead-actions">
-              <span class="status-badge">{{ getStatusLabel(lead.status) }}</span>
-              <button class="btn-delete" (click)="deleteLead(lead.id)" title="Remover lead">
-                ✕
-              </button>
-            </div>
-          </div>
-          <div class="lead-body">
-            <p><strong>Tipo de Evento:</strong> {{ lead.eventType }}</p>
-            <p><strong>Data Desejada:</strong> {{ lead.date | date: 'dd/MM/yyyy' }}</p>
-            <p><strong>Email:</strong> {{ lead.email }}</p>
-            <p><strong>Telefone:</strong> {{ lead.phone }}</p>
-          </div>
-          <div class="lead-actions-buttons">
-            <button
-              class="btn-action btn-contacted"
-              (click)="updateLeadStatus(lead, 'contacted')"
-              [disabled]="lead.status !== 'new'"
-            >
-              Marcar como Contatado
-            </button>
-            <button
-              class="btn-action btn-interested"
-              (click)="updateLeadStatus(lead, 'interested')"
-              [disabled]="lead.status === 'new'"
-            >
-              Marcar como Interessado
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Block Agenda Tab -->
-    <section *ngIf="activeTab === 'block-agenda'" class="tab-content">
-      <h2>Bloquear Agenda</h2>
-
-      <!-- Block Form -->
-      <div class="block-form-container">
-        <button
-          class="btn-primary btn-add-block"
-          (click)="showBlockForm = !showBlockForm"
-        >
-          {{ showBlockForm ? '✕ Cancelar' : '+ Bloquear Data' }}
-        </button>
-
-        <div *ngIf="showBlockForm" class="block-form">
-          <h3>Bloquear Nova Data</h3>
-          <div class="form-group">
-            <label for="blockDate">Data:</label>
-            <input
-              id="blockDate"
-              type="date"
-              [(ngModel)]="newBlockDate"
-              class="form-input"
-            />
-          </div>
-          <div class="form-group">
-            <label for="blockReason">Motivo:</label>
-            <input
-              id="blockReason"
-              type="text"
-              [(ngModel)]="newBlockReason"
-              placeholder="Ex: Indisponível, Manutenção, etc."
-              class="form-input"
-            />
-          </div>
-          <button class="btn-primary btn-submit" (click)="blockDate()">
-            Bloquear Data
-          </button>
-        </div>
-      </div>
-
-      <!-- Calendar -->
-      <div class="calendar-container">
-        <div class="calendar-header">
-          <button class="btn-nav" (click)="previousMonth()">◀</button>
-          <h3>{{ getMonthName() }} de {{ currentYear }}</h3>
-          <button class="btn-nav" (click)="nextMonth()">▶</button>
-        </div>
-
-        <div class="calendar">
-          <div class="calendar-weekdays">
-            <div class="weekday">Dom</div>
-            <div class="weekday">Seg</div>
-            <div class="weekday">Ter</div>
-            <div class="weekday">Qua</div>
-            <div class="weekday">Qui</div>
-            <div class="weekday">Sex</div>
-            <div class="weekday">Sab</div>
-          </div>
-
-          <div class="calendar-days">
-            <div
-              *ngFor="let day of calendarDays"
-              class="calendar-day"
-              [class.empty]="!day"
-              [class.blocked]="day && isDateBlocked(day)"
-            >
-              <span *ngIf="day">{{ day }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Blocked Dates List -->
-      <div class="blocked-dates-section">
-        <h3>Datas Bloqueadas</h3>
-        <div *ngIf="blockedDates.length === 0" class="empty-state">
-          <p>Nenhuma data bloqueada</p>
-        </div>
-        <div *ngFor="let blocked of blockedDates" class="blocked-date-item">
-          <div class="blocked-date-info">
-            <p><strong>{{ blocked.date | date: 'dd/MM/yyyy' }}</strong></p>
-            <p>{{ blocked.reason }}</p>
-          </div>
-          <button class="btn-delete" (click)="unblockDate(blocked.date)" title="Desbloquear data">
-            ✕
-          </button>
-        </div>
-      </div>
-    </section>
-  </main>
+  <div class="dashboard-main">
+    <router-outlet></router-outlet>
+  </div>
 </div>

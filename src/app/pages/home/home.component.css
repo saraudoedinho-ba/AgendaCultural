@@ -1,0 +1,37 @@
+.home-content {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.home-content > * {
+  margin-bottom: 30px;
+}
+
+.home-content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .home-content {
+    padding: 0 16px;
+  }
+
+  .home-content > * {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-content {
+    padding: 0 12px;
+  }
+
+  .home-content > * {
+    margin-bottom: 16px;
+  }
+}

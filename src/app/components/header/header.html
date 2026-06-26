@@ -8,8 +8,36 @@
             <h1 class="main-title">Encontre o artista perfeito para o seu evento</h1>
             <p class="sub-title">Musicos e bandas em qualquer lugar do Brasil</p>
         </div>
-        <div class="actions-section"><button class="btn btn-primary" routerLink="/cadastro-artista">CADASTRO
-                ARTISTAS</button><button class="btn btn-outline" routerLink="/encontrar-artista">Encontrar um
-                Artista</button><a href="#" class="nav-link">COMO FUNCIONA</a></div>
+
+        <!-- Menu Desktop -->
+        <div class="actions-section desktop-only">
+            <button class="btn btn-primary" routerLink="/cadastro-artista">CADASTRO ARTISTAS</button>
+            <button class="btn btn-outline" routerLink="/encontrar-artista">Encontrar um Artista</button>
+            <button class="btn btn-outline" (click)="irParaPainel()">Painel</button>
+            <a href="#" class="nav-link">COMO FUNCIONA</a>
+            @if (usuarioLogado) {
+                <span class="user-email" title="{{ emailUsuario }}">{{ emailUsuario }}</span>
+            }
+        </div>
+
+        <!-- Menu Mobile -->
+        <div class="mobile-only">
+            <button class="menu-toggle" (click)="toggleMenu()" aria-label="Abrir menu">
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+                <span class="hamburger"></span>
+            </button>
+        </div>
     </div>
+
+    <!-- Menu Mobile Dropdown -->
+    <nav class="mobile-menu" [class.open]="menuAberto">
+        <button class="btn btn-primary" routerLink="/cadastro-artista" (click)="fecharMenu()">CADASTRO ARTISTAS</button>
+        <button class="btn btn-outline" routerLink="/encontrar-artista" (click)="fecharMenu()">Encontrar um Artista</button>
+        <button class="btn btn-outline" (click)="irParaPainel(); fecharMenu()">Painel</button>
+        <a href="#" class="nav-link" (click)="fecharMenu()">COMO FUNCIONA</a>
+        @if (usuarioLogado) {
+            <span class="user-email" title="{{ emailUsuario }}">{{ emailUsuario }}</span>
+        }
+    </nav>
 </header>

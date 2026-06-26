@@ -1,0 +1,37 @@
+anuncie.png
+anuncio.jpg
+background.png
+back_clave.png
+baile.png
+cerimonial.png
+dashboard.png
+estrelas.png
+icones_agenda/
+ideia.png
+instrumentos.png
+logo.png
+menu-icons/
+musico.png
+pocket.png
+README.md
+Sem título.png
+Sem título2.png
+setas.png
+vozeviolao.png
+menu-icons/agendamento-banner.png
+menu-icons/banner-topo-agenda.png
+menu-icons/cadastro.png
+menu-icons/dashboard.png
+menu-icons/home.png
+menu-icons/procurar.png
+icones_agenda/bloquear-agenda.png
+icones_agenda/clientes.png
+icones_agenda/dashboard.png
+icones_agenda/leads-novos.png
+icones_agenda/leads.png
+icones_agenda/meus-shows.png
+icones_agenda/proximos-shows-calendario.png
+icones_agenda/proximos-shows-localizacao.png
+icones_agenda/proximos.png
+icones_agenda/realizados.png
+icones_agenda/total-shows.png

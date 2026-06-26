@@ -1,93 +1,126 @@
-.anuncio-wrapper {
+.carrossel-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 15px;
   padding: 40px 20px;
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-}
-
-/* Ad Card Styles */
-.ad-card {
-  width: 100%;
-  max-width: 620px;
-  height: 222px;
-  background-color: #d1d1d6; /* Cinza claro da imagem */
-  border-radius: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 40px;
+  max-width: 1200px;
+  margin: 0 auto;
   box-sizing: border-box;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
-.ad-text-content {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.ad-title {
-  font-size: 1.8rem;
-  font-weight: 900;
-  color: #3a3a3c;
-  margin: 0;
-  letter-spacing: -0.5px;
-}
-
-.ad-dimensions {
-  font-size: 0.9rem;
-  color: #8e8e93;
-  margin: 0;
-}
-
-/* Icon Box Styles */
-.ad-icon-box {
-  width: 80px;
-  height: 80px;
-  background-color: #3a3a3c; /* Cinza escuro/preto do box */
+.carrossel-container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  aspect-ratio: 620 / 222;
   border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+.carrossel-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.carrossel-slide.active {
+  opacity: 1;
+}
+
+.carrossel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.carrossel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.4);
+  color: #ffffff;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ffffff;
+  transition: background 0.3s ease;
 }
 
-.megaphone-icon {
-  width: 40px;
-  height: 40px;
-  transform: rotate(-10deg);
+.carrossel-btn:hover {
+  background: rgba(0, 0, 0, 0.7);
 }
 
-/* Rating Stars Styles */
-.rating-stars {
+.carrossel-prev {
+  left: 10px;
+}
+
+.carrossel-next {
+  right: 10px;
+}
+
+.carrossel-indicadores {
   display: flex;
-  gap: 5px;
+  gap: 8px;
 }
 
-.star {
-  font-size: 2.5rem;
-  color: #ffff00; /* Amarelo brilhante das estrelas */
-  text-shadow: 0 0 5px rgba(255, 255, 0, 0.3);
-  line-height: 1;
+.indicador {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ccc;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
-/* Responsive adjustments */
+.indicador.active {
+  background: #00bcd4;
+}
+
+@media (max-width: 768px) {
+  .carrossel-wrapper {
+    padding: 20px;
+  }
+
+  .carrossel-container {
+    aspect-ratio: 16 / 9;
+  }
+
+  .carrossel-slide img {
+    object-fit: contain;
+  }
+}
+
 @media (max-width: 500px) {
-  .ad-card {
-    height: auto;
-    padding: 30px 20px;
-    flex-direction: column;
-    gap: 20px;
-    text-align: center;
+  .carrossel-wrapper {
+    padding: 20px 15px;
   }
-  
-  .ad-title {
-    font-size: 1.5rem;
+
+  .carrossel-container {
+    aspect-ratio: 16 / 9;
   }
-  
-  .star {
-    font-size: 2rem;
+
+  .carrossel-slide img {
+    object-fit: contain;
+  }
+
+  .carrossel-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
   }
 }

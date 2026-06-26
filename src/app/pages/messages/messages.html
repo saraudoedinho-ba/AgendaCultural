@@ -1,0 +1,101 @@
+<!-- Header -->
+<header class="dashboard-header">
+  <div class="header-content">
+    <div>
+      <h1>Mensagens</h1>
+      <p>Gerencie seus chamados e comunicações</p>
+    </div>
+  </div>
+</header>
+
+<!-- Main Content -->
+<main class="dashboard-content messages-tab">
+  <div class="messages-header">
+    <h2>Mensagens</h2>
+    <button class="btn-new-ticket" (click)="abrirModal()">Novo chamado</button>
+  </div>
+
+  <div class="ticket-search">
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      (input)="filterTickets()"
+      placeholder="Procurar chamados"
+      class="ticket-search-input"
+    />
+    <span class="ticket-search-icon">🔍</span>
+    <button class="btn-filter" title="Filtros">☰</button>
+  </div>
+
+  <div class="ticket-table-container">
+    <table class="ticket-table">
+      <thead>
+        <tr>
+          <th>Chamado</th>
+          <th>Título</th>
+          <th class="text-right">Última atualização</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="filteredTickets.length === 0">
+          <td colspan="3" class="ticket-empty">Sem chamados</td>
+        </tr>
+        <tr *ngFor="let ticket of filteredTickets">
+          <td>{{ ticket.number }}</td>
+          <td>{{ ticket.title }}</td>
+          <td class="text-right">{{ ticket.lastUpdate | date: 'dd/MM/yyyy HH:mm' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ticket-pagination">
+    <div class="pagination-left">
+      <span>Linhas por página:</span>
+      <select class="pagination-select">
+        <option>5</option>
+        <option>10</option>
+        <option>25</option>
+      </select>
+    </div>
+    <div class="pagination-right">
+      <span>{{ filteredTickets.length > 0 ? '1 - ' + filteredTickets.length : '0 - 0' }}</span>
+      <button class="btn-pagination" disabled>◀</button>
+      <button class="btn-pagination" disabled>▶</button>
+    </div>
+  </div>
+</main>
+
+<!-- Modal Novo Chamado -->
+<div class="modal-overlay" *ngIf="showModal" (click)="fecharModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Novo chamado</h3>
+      <button class="btn-close" (click)="fecharModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="titulo">Título</label>
+        <input
+          id="titulo"
+          type="text"
+          [(ngModel)]="novoTitulo"
+          placeholder="Digite o título do chamado"
+        />
+      </div>
+      <div class="form-group">
+        <label for="mensagem">Mensagem</label>
+        <textarea
+          id="mensagem"
+          [(ngModel)]="novaMensagem"
+          placeholder="Descreva seu chamado..."
+          rows="5"
+        ></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-modal btn-modal-cancel" (click)="fecharModal()">Cancelar</button>
+      <button class="btn-modal btn-modal-save" (click)="salvarChamado()">Salvar</button>
+    </div>
+  </div>
+</div>
